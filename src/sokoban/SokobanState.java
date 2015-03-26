@@ -2,7 +2,7 @@ package sokoban;
 
 import gps.api.GPSState;
 
-public class SokobanState implements GPSState {
+public class SokobanState implements GPSState<SokobanState> {
 
 	private Board board;
 	
@@ -11,9 +11,15 @@ public class SokobanState implements GPSState {
 	}
 	
 	@Override
-	public boolean compare(GPSState state) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean compare(SokobanState state) {
+		return board.equals(state.getBoard());
 	}
 
+	public SokobanState evalRule(SokobanRule rule) {
+		return null;
+	}
+	
+	private Board getBoard() {
+		return board;
+	}
 }

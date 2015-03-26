@@ -7,9 +7,20 @@ public class Cell {
 	
 	private CellType cellType;
 	private BoardEntity entity;
+	private int x, y;
 	
-	public Cell(CellType cellType, BoardEntity entity) {
+	public Cell(int x, int y, CellType cellType, BoardEntity entity) {
+		this.x = x;
+		this.y = y;
 		this.cellType = cellType;
 		this.entity = entity;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 }

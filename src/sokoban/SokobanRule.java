@@ -4,12 +4,15 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
-public class SokobanRule implements GPSRule {
+public class SokobanRule implements GPSRule<SokobanState> {
+	public enum Direction {
+		UP, DOWN, LEFT, RIGHT;
+	}
 
-	private String name;
+	private Direction direction;
 	
-	public SokobanRule(String name) {
-		this.name = name;
+	public SokobanRule(Direction direction) {
+		this.direction = direction;
 	}
 	
 	@Override
@@ -19,13 +22,11 @@ public class SokobanRule implements GPSRule {
 
 	@Override
 	public String getName() {
-		return name;
+		return direction.toString();
 	}
 
 	@Override
-	public GPSState evalRule(GPSState state) throws NotAppliableException {
-		// TODO Auto-generated method stub
-		return null;
+	public SokobanState evalRule(SokobanState state) throws NotAppliableException {
+		return state.evalRule(this);
 	}
-
 }
