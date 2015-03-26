@@ -6,16 +6,20 @@ import gps.exception.NotAppliableException;
 
 public class SokobanRule implements GPSRule {
 
+	private String name;
+	
+	public SokobanRule(String name) {
+		this.name = name;
+	}
+	
 	@Override
 	public Integer getCost() {
-		// TODO Auto-generated method stub
-		return null;
+		return 1;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override

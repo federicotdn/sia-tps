@@ -18,7 +18,7 @@ public abstract class GPSEngine {
 	private GPSProblem problem;
 
 	// Use this variable in the addNode implementation
-	private SearchStrategy strategy;
+	protected SearchStrategy strategy;
 
 	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
 
@@ -89,13 +89,13 @@ public abstract class GPSEngine {
 
 	private  boolean checkOpenAndClosed(Integer cost, GPSState state) {
 		for (GPSNode openNode : open) {
-			if (openNode.getState().compare(state) && openNode.getCost() < cost) {
+			if (openNode.getState().compare(state) && openNode.getCost() <= cost) {
 				return true;
 			}
 		}
 		for (GPSNode closedNode : closed) {
 			if (closedNode.getState().compare(state)
-					&& closedNode.getCost() < cost) {
+					&& closedNode.getCost() <= cost) {
 				return true;
 			}
 		}
