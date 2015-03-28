@@ -28,10 +28,10 @@ public class SokobanEngine extends GPSEngine {
 	}
 
 	private void addNodeBFS(GPSNode node) {
-		
+		open.add(node);
 	}
 	
 	private void addNodeDFS(GPSNode node) {
-		
+		open.add(0, node);
 	}	
 }
