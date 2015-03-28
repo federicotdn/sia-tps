@@ -1,33 +1,42 @@
 package sokoban;
 
+import java.util.ArrayList;
+
 import sokoban.Cell.CellType;
 import sokoban.exceptions.InvalidBoardException;
 
 public class Board {
-	private static final int WIDTH = 20;
-	private static final int HEIGHT = 16;
-	
-	private Cell[][] cells;
+	private ArrayList<Cell[]> rows;
 	private Cell playerCell;
+	private int width;
 	
-	public Board() {
+	public Board(int width) {
+		this.width = width;
 		playerCell = null;
-		
-		cells = new Cell[HEIGHT][];
-		for (int i = 0; i < HEIGHT; i++) {
-			cells[i] = new Cell[WIDTH];
-		}
+		rows = new ArrayList<Cell[]>();
+	}
+	
+	public void addRow() {
+		rows.add(new Cell[width]);
+	}
+	
+	public ArrayList<Cell[]> getRows() {
+		return rows;
 	}
 	
 	public void addCell(int x, int y, CellType type, BoardEntity entity) {
-		cells[y][x] = new Cell(x, y, type, entity);
+		Cell[] row = rows.get(y);
+		row[x] = new Cell(x, y, type, entity);
 		
 		if (entity == BoardEntity.PLAYER) {
 			if (playerCell != null) {
-				throw new InvalidBoardException();
+				throw new InvalidBoardException("Duplicate player found.");
 			}
-			playerCell = cells[y][x];
+			playerCell = row[x];
 		}
 	}
 	
+	public boolean hasPlayer() {
+		return playerCell != null;
+	}
 }

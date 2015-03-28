@@ -16,6 +16,14 @@ public class Cell {
 		this.entity = entity;
 	}
 	
+	public CellType getCellType() {
+		return cellType;
+	}
+	
+	public BoardEntity getBoardEntity() {
+		return entity;
+	}
+	
 	public int getX() {
 		return x;
 	}

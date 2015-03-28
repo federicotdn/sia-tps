@@ -9,19 +9,19 @@ import gps.api.GPSState;
 public class SokobanProblem implements GPSProblem {
 
 	@Override
-	public GPSState<SokobanState> getInitState() {
+	public GPSState getInitState() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GPSState<SokobanState> getGoalState() {
+	public GPSState getGoalState() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<GPSRule<?>> getRules() {
+	public List<GPSRule> getRules() {
 		// TODO Auto-generated method stub
 		return null;
 	}

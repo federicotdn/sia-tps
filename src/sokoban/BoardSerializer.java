@@ -21,36 +21,36 @@ public class BoardSerializer {
 			FileInputStream file = new FileInputStream(filename);
 			BufferedReader br = new BufferedReader(new InputStreamReader(file));
 
-			Board board = new Board();
+			Board board = null;
 			String line;
 			int width = 0, i = 0;
-			boolean hasLine = false;
 
 			while ((line = br.readLine()) != null) {
-				if (!hasLine) {
+				if (board == null) {
 					width = line.length();
-					hasLine = true;
+					board = new Board(width);
 				} else {
 					if (line.length() != width) {
 						br.close();
-						throw new InvalidBoardException();
+						throw new InvalidBoardException("Invalid line length.");
 					}
 				}
 
+				board.addRow();
+				
+				int j = 0;
 				for (char ch : line.toCharArray()) {
-					int j = 0;
-					addToBoard(board, i, j, ch);
+					addToBoard(board, i, j++, ch);
 				}
 
 				i++;
 			}
-
-			if (!hasLine) {
-				br.close();
-				throw new InvalidBoardException();
+			br.close();
+			
+			if (board == null || !board.hasPlayer()) {
+				throw new InvalidBoardException("Empty file, or no player found.");
 			}
 
-			br.close();
 			return board;
 
 		} catch (IOException e) {
@@ -76,11 +76,40 @@ public class BoardSerializer {
 			board.addCell(j, i, CellType.EMPTY, BoardEntity.CHEST);
 			break;
 		default:
-			throw new InvalidBoardException();
+			throw new InvalidBoardException("Invalid char found.");
 		}
 	}
 
 	public static void printBoard(Board board) {
-		
+		for (Cell[] row : board.getRows()) {
+			for (Cell cell : row) {
+				BoardEntity ent = cell.getBoardEntity();
+				
+				if (ent != null) {
+					switch (ent) {
+					case CHEST:
+						System.out.print(CHEST);
+						break;
+					case PLAYER:
+						System.out.print(PLAYER);
+						break;
+					}						
+				} else {
+					switch (cell.getCellType()) {
+					case WALL:
+						System.out.print(WALL);
+						break;
+					case EMPTY:
+						System.out.print(EMPTY);
+						break;
+					case GOAL:
+						System.out.print(GOAL);
+						break;
+					}
+				}
+			}
+			
+			System.out.println();
+		}
 	}
 }

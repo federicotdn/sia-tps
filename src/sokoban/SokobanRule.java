@@ -4,7 +4,7 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
-public class SokobanRule implements GPSRule<SokobanState> {
+public class SokobanRule implements GPSRule {
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT;
 	}
@@ -26,7 +26,12 @@ public class SokobanRule implements GPSRule<SokobanState> {
 	}
 
 	@Override
-	public SokobanState evalRule(SokobanState state) throws NotAppliableException {
-		return state.evalRule(this);
+	public GPSState evalRule(GPSState state) throws NotAppliableException {
+		/*
+		 * Downcast para no tener que cambiar la interfaz de la catedra.
+		 */
+		SokobanState st = (SokobanState) state;
+		
+		return null;
 	}
 }

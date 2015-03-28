@@ -3,7 +3,7 @@ package gps.api;
 /**
  * GPSState interface.
  */
-public interface GPSState<T extends GPSState<?>> {
+public interface GPSState {
 	
 	/**
 	 * Compares self to another state to determine
@@ -12,5 +12,5 @@ public interface GPSState<T extends GPSState<?>> {
 	 * @return true if self is the same as the state given,
 	 * false if they are different.
 	 */
-	boolean compare(T state);
+	boolean compare(GPSState state);
 }
