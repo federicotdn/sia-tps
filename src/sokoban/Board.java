@@ -81,7 +81,7 @@ public class Board {
 			Cell[] row = rows.get(i);
 			Cell[] otherRow = otherRows.get(i);
 			
-			for (int j = 0; i < width; i++) {
+			for (int j = 0; j < width; j++) {
 				Cell cell = row[j];
 				Cell otherCell = otherRow[j];
 				
