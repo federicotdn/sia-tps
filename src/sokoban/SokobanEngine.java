@@ -17,10 +17,16 @@ public class SokobanEngine extends GPSEngine {
 		case DFS:
 			addNodeDFS(node);
 			break;
+		case Greedy:
+			addNodeGreedy(node);
 		default:
 			throw new RuntimeException("Invalid Strategy");
 		}
 
+	}
+	
+	private void addNodeGreedy(GPSNode node) {
+		
 	}
 	
 	private void addNodeAStar(GPSNode node) {
