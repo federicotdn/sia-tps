@@ -14,8 +14,10 @@ public class SokobanState implements GPSState {
 
 	public SokobanState evalRule(SokobanRule rule) throws NotAppliableException {
 		if (canEvalRule(rule)) {
-			SokobanState st = new SokobanState(board);
+			SokobanState st = new SokobanState(board.clone());
 			st.getBoard().movePlayer(rule.getDirection());
+			System.out.println("new state:");
+			BoardSerializer.printBoard(st.getBoard());
 			return st;
 		}
 		throw new NotAppliableException();

@@ -1,5 +1,6 @@
 package sokoban;
 
+import sokoban.SokobanRule.Direction;
 import gps.SearchStrategy;
 
 public class Start {
@@ -9,9 +10,9 @@ public class Start {
 		BoardSerializer.printBoard(b);
 		System.out.println("Begin:");
 		
-		SokobanEngine engine = new SokobanEngine();
+		SokobanEngine startThe = new SokobanEngine();
 		SokobanProblem problem = new SokobanProblem(b, null); // agregar heuristica mas tarde
 		
-		engine.engine(problem, SearchStrategy.DFS);
+		startThe.engine(problem, SearchStrategy.DFS);
 	}
 }

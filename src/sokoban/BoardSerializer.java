@@ -12,7 +12,7 @@ public class BoardSerializer {
 	
 	private static final char PLAYER = 'P';
 	private static final char CHEST = 'C';
-	private static final char EMPTY = 'E';
+	private static final char EMPTY = ' ';
 	private static final char WALL = 'W';
 	private static final char GOAL = 'G';
 	

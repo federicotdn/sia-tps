@@ -57,6 +57,20 @@ public class Board {
 		return width;
 	}
 	
+	public Board clone() {
+		Board board = new Board(width);
+		for (int i = 0; i < rows.size(); i++) {
+			board.addRow();
+			
+			for (int j = 0; j < width; j++) {
+				Cell cell = rows.get(i)[j];
+				board.addCell(j, i, cell.getCellType(), cell.getBoardEntity());
+			}
+		}
+		
+		return board;
+	}
+	
 	public boolean equalsBoard(Board board) {
 		ArrayList<Cell[]> otherRows = board.getRows();
 		if (otherRows.size() != rows.size() || width != board.getWidth()) {

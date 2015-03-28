@@ -14,10 +14,16 @@ public class SokobanProblem implements GPSProblem {
 
 	private Board initBoard;
 	private SokobanHeuristic hFunction;
+	LinkedList<GPSRule> ruleList;
 	
 	public SokobanProblem(Board board, SokobanHeuristic hFunction) {
 		initBoard = board;
 		this.hFunction = hFunction;
+		
+		ruleList = new LinkedList<GPSRule>();
+		for (Direction dir : Direction.values()) {
+			ruleList.add(new SokobanRule(dir));
+		}
 	}
 	
 	@Override
@@ -36,11 +42,7 @@ public class SokobanProblem implements GPSProblem {
 
 	@Override
 	public List<GPSRule> getRules() {
-		LinkedList<GPSRule> list = new LinkedList<GPSRule>();
-		for (Direction dir : Direction.values()) {
-			list.add(new SokobanRule(dir));
-		}
-		return list;
+		return ruleList;
 	}
 
 	@Override
