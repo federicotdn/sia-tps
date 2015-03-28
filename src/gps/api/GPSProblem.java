@@ -14,12 +14,10 @@ public interface GPSProblem {
 	GPSState getInitState();
 	
 	/**
-	 * Provides the goal state for the GPS know when the goal is reached.
-	 * @return The state of the problem that indicates that it has been solved.
+	 * Returns true if the specified state is a goal state.
 	 */
-	GPSState getGoalState();
+	boolean isGoalState(GPSState state);
 
-	
 	/**
 	 * Provides the list of all the rules that the problem involves. 
 	 * These rules are state independent.

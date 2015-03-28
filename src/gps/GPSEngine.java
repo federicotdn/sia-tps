@@ -15,7 +15,7 @@ public abstract class GPSEngine {
 
 	protected List<GPSNode> closed = new ArrayList<GPSNode>();
 
-	private GPSProblem problem;
+	protected GPSProblem problem;
 
 	// Use this variable in the addNode implementation
 	protected SearchStrategy strategy;
@@ -58,7 +58,7 @@ public abstract class GPSEngine {
 
 	private  boolean isGoal(GPSNode currentNode) {
 		return currentNode.getState() != null
-				&& currentNode.getState().compare(problem.getGoalState());
+				&& problem.isGoalState(currentNode.getState());
 	}
 
 	private  boolean explode(GPSNode node) {
@@ -110,6 +110,5 @@ public abstract class GPSEngine {
 				|| state.compare(parent.getState());
 	}
 
-	public abstract  void addNode(GPSNode node);
-	
+	public abstract void addNode(GPSNode node);
 }

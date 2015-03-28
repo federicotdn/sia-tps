@@ -26,11 +26,9 @@ public class SokobanRule implements GPSRule {
 	}
 
 	private Direction direction;
-	private BoardPoint move;
 	
-	public SokobanRule(Direction direction, int x, int y) {
+	public SokobanRule(Direction direction) {
 		this.direction = direction;
-		this.move = new BoardPoint(x, y);
 	}
 	
 	@Override
@@ -41,10 +39,6 @@ public class SokobanRule implements GPSRule {
 	@Override
 	public String getName() {
 		return direction.toString();
-	}
-	
-	public BoardPoint getMove(){
-		return move;
 	}
 	
 	public Direction getDirection() {

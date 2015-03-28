@@ -50,6 +50,8 @@ public class BoardSerializer {
 			if (board == null || !board.hasPlayer()) {
 				throw new InvalidBoardException("Empty file, or no player found.");
 			}
+			
+			board.validateChestCount();
 
 			return board;
 
@@ -59,7 +61,7 @@ public class BoardSerializer {
 	}
 
 	private static void addToBoard(Board board, int i, int j, char ch) {
-		switch (ch) {
+	switch (ch) {
 		case EMPTY:
 			board.addCell(j, i, CellType.EMPTY, null);
 			break;
