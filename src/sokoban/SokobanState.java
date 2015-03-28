@@ -39,38 +39,19 @@ public class SokobanState implements GPSState {
 	
 	public boolean canEvalRule(SokobanRule rule) {
 		Cell player = board.getPlayerCell();
-		
 		Direction direction = rule.getDirection();
-		
-		Cell movingCell = direction.getAdjacentCell(board, player); //metodo para conseguir el adjacent usando la direccion
-		// ya no deberia ser necesario usar Point
-		
-		/*
-		 * Esto no necesariamente va a funcionar porque si el jugador esta contra el borde ya 
-		 * no quedan mas celdas para buscar al costado.
-		 * 
-		 * Primero me fijaria si esta contra una pared y si es asi ya salgo.
-		 * 
-		 * Si no esta contra una pared si o si va a haber una distancia de dos bloques hasta el
-		 * borde del mapa.
-		 */
-		//Cell secondCell = direction.getAdjacentCell(board, movingCell);
-		
-		//Cell movingCell = board.getCell(player.getX() + move.getX(), player.getY() + move.getY());
-		//Cell secondCell = board.getCell(movingCell.getX() + move.getX(), movingCell.getY() + move.getY());
-
-		
-		
-		/*		switch (movingCell.getCellType()){
-			case WALL: return false;
-			default: switch (secondCell.getCellType()){
-				case WALL: return false;
-				default: switch (secondCell.getBoardEntity()){
-					case CHEST: return false;
-					default: break;
-				}
-			}
-		}*/
+		Cell movingCell = direction.getAdjacentCell(board, player);
+		if (movingCell.isWall()){
+			return false;
+		}
+		if (movingCell.hasChest()){
+			return checkSecondMove(direction, movingCell);
+		}
 		return true;
+	}
+	
+	public boolean checkSecondMove(Direction direction, Cell cell){
+		Cell adjacentCell = direction.getAdjacentCell(board, cell);
+		return !(adjacentCell.isWall() || adjacentCell.hasChest());
 	}
 }

@@ -28,11 +28,19 @@ public class Cell {
 		return entity;
 	}
 	
+	public boolean isWall(){
+		return cellType == CellType.WALL;
+	}
+	
 	public int getX() {
 		return x;
 	}
 	
 	public int getY() {
 		return y;
+	}
+
+	public boolean hasChest() {
+		return entity == BoardEntity.CHEST;
 	}
 }
