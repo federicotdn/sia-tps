@@ -1,5 +1,6 @@
 package sokoban;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import sokoban.Cell.CellType;
@@ -14,6 +15,10 @@ public class Board {
 		this.width = width;
 		playerCell = null;
 		rows = new ArrayList<Cell[]>();
+	}
+	
+	public Cell getPlayerCell(){
+		return playerCell;
 	}
 	
 	public void addRow() {
@@ -38,5 +43,18 @@ public class Board {
 	
 	public boolean hasPlayer() {
 		return playerCell != null;
+	}
+	
+	public void movePlayer(BoardPoint move) {
+		Cell nextCell = getCell(playerCell.getX() + move.getX(), playerCell.getY() + move.getY());
+		Cell secondCell = getCell(nextCell.getX() + move.getX(), nextCell.getY() + move.getY());
+		secondCell.setBoardEntity(nextCell.getBoardEntity());
+		nextCell.setBoardEntity(playerCell.getBoardEntity());
+		playerCell.setBoardEntity(null);
+		playerCell = nextCell;
+	}
+	
+	public Cell getCell(int x, int y){
+		return rows.get(y)[x];
 	}
 }

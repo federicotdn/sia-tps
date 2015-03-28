@@ -20,6 +20,10 @@ public class Cell {
 		return cellType;
 	}
 	
+	public void setBoardEntity (BoardEntity entity){
+		this.entity = entity;
+	}
+	
 	public BoardEntity getBoardEntity() {
 		return entity;
 	}

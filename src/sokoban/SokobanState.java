@@ -1,5 +1,7 @@
 package sokoban;
 
+import java.awt.Point;
+
 import gps.api.GPSState;
 
 public class SokobanState implements GPSState {
@@ -11,10 +13,15 @@ public class SokobanState implements GPSState {
 	}
 
 	public SokobanState evalRule(SokobanRule rule) {
+		if (canEvalRule(rule.getMove())){
+			SokobanState st = new SokobanState(board);
+			st.board.movePlayer(rule.getMove());
+			return st;
+		}
 		return null;
 	}
 	
-	private Board getBoard() {
+	public Board getBoard() {
 		return board;
 	}
 
@@ -26,5 +33,22 @@ public class SokobanState implements GPSState {
 		SokobanState st = (SokobanState) state;
 		
 		return false;
+	}
+	
+	public boolean canEvalRule(BoardPoint move) {
+		Cell player = board.getPlayerCell();
+		Cell movingCell = board.getCell(player.getX() + move.getX(), player.getY() + move.getY());
+		Cell secondCell = board.getCell(movingCell.getX() + move.getX(), movingCell.getY() + move.getY());
+		switch (movingCell.getCellType()){
+			case WALL: return false;
+			default: switch (secondCell.getCellType()){
+				case WALL: return false;
+				default: switch (secondCell.getBoardEntity()){
+					case CHEST: return false;
+					default: break;
+				}
+			}
+		}
+		return true;
 	}
 }
