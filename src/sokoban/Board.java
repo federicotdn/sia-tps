@@ -8,13 +8,15 @@ import sokoban.exceptions.InvalidBoardException;
 public class Board {
 	private ArrayList<Cell[]> rows;
 	private Cell playerCell;
+	private ArrayList<Cell> goals;
 	private int width;
-	private int chests = 0, goals = 0;
+	private int chestCount = 0, goalCount = 0;
 
 	public Board(int width) {
 		this.width = width;
 		playerCell = null;
 		rows = new ArrayList<Cell[]>();
+		goals = new ArrayList<Cell>();
 	}
 
 	public Cell getPlayerCell() {
@@ -34,11 +36,12 @@ public class Board {
 		row[x] = new Cell(x, y, type, entity);
 
 		if (type == CellType.GOAL) {
-			goals++;
+			goalCount++;
+			goals.add(row[x]);
 		}
 		
 		if (entity == BoardEntity.CHEST) {
-			chests++;
+			chestCount++;
 		}
 		
 		if (entity == BoardEntity.PLAYER) {
@@ -125,7 +128,7 @@ public class Board {
 	}
 	
 	public void validateChestCount() {
-		if (chests < goals) {
+		if (chestCount < goalCount) {
 			throw new InvalidBoardException("Chests count must be higher or equal than goals count.");
 		}
 	}
@@ -143,14 +146,6 @@ public class Board {
 	}
 	
 	public ArrayList<Cell> getGoals() {
-		ArrayList<Cell> goals = new ArrayList<Cell>(); 
-		for (Cell[] row : rows){
-			for (Cell cell : row){
-				if(cell.getCellType() == CellType.GOAL){
-					goals.add(cell);
-				}
-			}
-		}
 		return goals;
 	}
 }
