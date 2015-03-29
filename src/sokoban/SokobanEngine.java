@@ -2,6 +2,7 @@ package sokoban;
 
 import gps.GPSEngine;
 import gps.GPSNode;
+import gps.api.GPSState;
 
 public class SokobanEngine extends GPSEngine {
 
@@ -19,6 +20,7 @@ public class SokobanEngine extends GPSEngine {
 			break;
 		case Greedy:
 			addNodeGreedy(node);
+			break;
 		default:
 			throw new RuntimeException("Invalid Strategy");
 		}
@@ -26,7 +28,18 @@ public class SokobanEngine extends GPSEngine {
 	}
 	
 	private void addNodeGreedy(GPSNode node) {
+		int hValue = problem.getHValue(node.getState());
+		int i = 0;
 		
+		for (; i < open.size(); i++) {
+			GPSState state = open.get(i).getState();
+			int otherValue = problem.getHValue(state);
+			if (otherValue >= hValue) {
+				break;
+			}
+		}
+		
+		open.add(i, node);
 	}
 	
 	private void addNodeAStar(GPSNode node) {

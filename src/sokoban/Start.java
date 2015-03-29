@@ -1,6 +1,7 @@
 package sokoban;
 
 import sokoban.SokobanRule.Direction;
+import sokoban.heuristics.DistanceOnlyHeuristic;
 import gps.SearchStrategy;
 
 public class Start {
@@ -11,8 +12,9 @@ public class Start {
 		System.out.println("Begin:");
 		
 		SokobanEngine startThe = new SokobanEngine();
-		SokobanProblem problem = new SokobanProblem(b, null); // agregar heuristica mas tarde
+		DistanceOnlyHeuristic h = new DistanceOnlyHeuristic(false);
+		SokobanProblem problem = new SokobanProblem(b, h);
 		
-		startThe.engine(problem, SearchStrategy.DFS);
+		startThe.engine(problem, SearchStrategy.Greedy);
 	}
 }

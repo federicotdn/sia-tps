@@ -107,7 +107,7 @@ public abstract class GPSEngine {
 			return false;
 		}
 		return checkBranch(parent.getParent(), state)
-				|| state.compare(parent.getState());
+				|| state.compare(parent.getState()); // cambiar el orden de las condiciones?
 	}
 
 	public abstract void addNode(GPSNode node);
