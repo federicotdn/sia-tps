@@ -29,7 +29,7 @@ public abstract class GPSEngine {
 		boolean finished = false;
 		boolean failed = false;
 		long explosionCounter = 0;
-
+		long startTime = System.currentTimeMillis();
 		open.add(rootNode);
 		while (!failed && !finished) {
 			if (open.size() <= 0) {
@@ -50,6 +50,10 @@ public abstract class GPSEngine {
 		}
 
 		if (finished) {
+			System.out.println("nodos totales:" + (open.size() + closed.size()));
+			System.err.println("expandidos:" + (closed.size()-1));
+			System.out.println("tardo: ");
+			System.out.println((System.currentTimeMillis() - startTime));
 			System.out.println("OK! solution found!");
 		} else if (failed) {
 			System.err.println("FAILED! solution not found!");
