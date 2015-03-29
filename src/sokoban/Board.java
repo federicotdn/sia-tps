@@ -129,4 +129,28 @@ public class Board {
 			throw new InvalidBoardException("Chests count must be higher or equal than goals count.");
 		}
 	}
+	
+	public ArrayList<Cell> getBoxes() {
+		ArrayList<Cell> boxes = new ArrayList<Cell>(); 
+		for (Cell[] row : rows){
+			for (Cell cell : row){
+				if(cell.getBoardEntity() == BoardEntity.CHEST){
+					boxes.add(cell);
+				}
+			}
+		}
+		return boxes;
+	}
+	
+	public ArrayList<Cell> getGoals() {
+		ArrayList<Cell> goals = new ArrayList<Cell>(); 
+		for (Cell[] row : rows){
+			for (Cell cell : row){
+				if(cell.getCellType() == CellType.GOAL){
+					goals.add(cell);
+				}
+			}
+		}
+		return goals;
+	}
 }
