@@ -1,6 +1,7 @@
 package sokoban;
 
 import sokoban.SokobanRule.Direction;
+import sokoban.heuristics.DeadlockHeuristic;
 import sokoban.heuristics.DistanceOnlyHeuristic;
 import gps.SearchStrategy;
 
@@ -12,7 +13,7 @@ public class Start {
 		System.out.println("Begin:");
 		
 		SokobanEngine startThe = new SokobanEngine();
-		DistanceOnlyHeuristic h = new DistanceOnlyHeuristic(false);
+		DistanceOnlyHeuristic h = new DeadlockHeuristic(false);
 		SokobanProblem problem = new SokobanProblem(b, h);
 		
 		startThe.engine(problem, SearchStrategy.Greedy);

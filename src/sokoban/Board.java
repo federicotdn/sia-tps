@@ -147,6 +147,17 @@ public class Board {
 		return chests;
 	}
 	
+	public boolean isCornered(Cell cell) {
+		for (Direction[] corner : Direction.corners) {
+			Cell side1 = corner[0].getAdjacentCell(this, cell);
+			Cell side2 = corner[1].getAdjacentCell(this, cell);
+			if (side1.isWall() || side2.isWall() || side1.hasChest() || side2.hasChest()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Integer getHValue() {
 		return hValue;
 	}
