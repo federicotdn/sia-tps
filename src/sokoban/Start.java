@@ -13,7 +13,7 @@ public class Start {
 		System.out.println("Begin:");
 		
 		SokobanEngine startThe = new SokobanEngine();
-		DistanceOnlyHeuristic h = new DeadlockHeuristic(false);
+		DistanceOnlyHeuristic h = new DeadlockHeuristic();
 		SokobanProblem problem = new SokobanProblem(b, h);
 		startThe.engine(problem, SearchStrategy.Greedy);
 	}

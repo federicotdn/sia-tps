@@ -10,10 +10,6 @@ public class DeadlockHeuristic extends DistanceOnlyHeuristic {
 
 	private static final Integer MAX_H = Integer.MAX_VALUE;
 	
-	public DeadlockHeuristic(boolean closestOnly) {
-		super(closestOnly);
-	}
-	
 	@Override
 	protected Integer calculateHValue(Board board) {
 		/*
