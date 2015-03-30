@@ -51,9 +51,8 @@ public abstract class GPSEngine {
 
 		if (finished) {
 			System.out.println("nodos totales:" + (open.size() + closed.size()));
-			System.err.println("expandidos:" + (closed.size()-1));
-			System.out.println("tardo: ");
-			System.out.println((System.currentTimeMillis() - startTime));
+			System.err.println("ndos forntera:" + (open.size()));
+			System.out.println("tardo: " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			System.out.println("OK! solution found!");
 		} else if (failed) {
 			System.err.println("FAILED! solution not found!");
@@ -111,7 +110,7 @@ public abstract class GPSEngine {
 			return false;
 		}
 		return checkBranch(parent.getParent(), state)
-				|| state.compare(parent.getState());
+				|| state.compare(parent.getState()); // cambiar el orden de las condiciones?
 	}
 
 	public abstract void addNode(GPSNode node);

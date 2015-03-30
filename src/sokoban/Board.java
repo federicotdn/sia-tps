@@ -11,6 +11,7 @@ public class Board {
 	private ArrayList<Cell> goals;
 	private int width;
 	private int chestCount = 0, goalCount = 0;
+	private Integer hValue = null;
 
 	public Board(int width) {
 		this.width = width;
@@ -133,16 +134,36 @@ public class Board {
 		}
 	}
 	
-	public ArrayList<Cell> getBoxes() {
-		ArrayList<Cell> boxes = new ArrayList<Cell>(); 
+	public ArrayList<Cell> getChests() {
+		ArrayList<Cell> chests = new ArrayList<Cell>(); 
 		for (Cell[] row : rows){
 			for (Cell cell : row){
 				if(cell.getBoardEntity() == BoardEntity.CHEST){
-					boxes.add(cell);
+					chests.add(cell);
 				}
 			}
 		}
-		return boxes;
+		
+		return chests;
+	}
+	
+	public boolean isCornered(Cell cell) {
+		for (Direction[] corner : Direction.corners) {
+			Cell side1 = corner[0].getAdjacentCell(this, cell);
+			Cell side2 = corner[1].getAdjacentCell(this, cell);
+			if ((side1.isWall() || side1.hasChest()) && (side2.isWall() || side2.hasChest())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Integer getHValue() {
+		return hValue;
+	}
+	
+	public void setHValue(Integer hValue) {
+		this.hValue = hValue;
 	}
 	
 	public ArrayList<Cell> getGoals() {
