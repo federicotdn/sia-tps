@@ -7,12 +7,6 @@ import sokoban.BoardEntity;
 import sokoban.Cell;
 
 public class DistanceOnlyHeuristic extends SokobanHeuristic {
-
-	private final boolean closestOnly;
-	
-	public DistanceOnlyHeuristic(boolean closestOnly) {
-		this.closestOnly = closestOnly;
-	}
 	
 	@Override
 	protected Integer calculateHValue(Board board) {
@@ -28,11 +22,7 @@ public class DistanceOnlyHeuristic extends SokobanHeuristic {
 				continue;
 			}
 			
-			if (closestOnly) {
-				manhattan += getMinimumDistanceFor(chests, goal);
-			} else {
-				manhattan += getTotalDistanceFor(chests, goal);
-			}
+			manhattan += getTotalDistanceFor(chests, goal);
 		}
 		
 		return manhattan;
@@ -44,17 +34,6 @@ public class DistanceOnlyHeuristic extends SokobanHeuristic {
 			total += getMDistance(chest, goal);
 		}
 		return total;
-	}
-	
-	private int getMinimumDistanceFor(ArrayList<Cell> chests, Cell goal) {
-		Integer minDist = null;
-		for (Cell chest : chests) {
-			int dist = getMDistance(chest, goal);
-			if (minDist == null || dist < minDist) {
-				minDist = dist;
-			}
-		}
-		return minDist;
 	}
 
 	private int getMDistance(Cell chest, Cell goal) {
