@@ -8,7 +8,7 @@ import gps.SearchStrategy;
 public class Start {
 	public static void main(String[] args) {
 		
-		Board b = BoardSerializer.fromFile("/home/riveign/workspace/sia-tpi/maps/map4.txt");
+		Board b = BoardSerializer.fromFile("maps/maptest2.txt");
 		BoardSerializer.printBoard(b);
 		System.out.println("Begin:");
 		

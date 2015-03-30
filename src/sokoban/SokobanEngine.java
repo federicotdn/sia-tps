@@ -21,10 +21,17 @@ public class SokobanEngine extends GPSEngine {
 		case Greedy:
 			addNodeGreedy(node);
 			break;
+		case Iterative:
+			addNodeIterative(node);
+			break;
 		default:
 			throw new RuntimeException("Invalid Strategy");
 		}
 
+	}
+	
+	private void addNodeIterative(GPSNode node) {
+		
 	}
 	
 	private void addNodeGreedy(GPSNode node) {
@@ -43,7 +50,18 @@ public class SokobanEngine extends GPSEngine {
 	}
 	
 	private void addNodeAStar(GPSNode node) {
+		int fValue = problem.getHValue(node.getState()) + node.getCost();
+		int i = 0;
 		
+		for (; i < open.size(); i++) {
+			GPSNode otherNode = open.get(i);
+			int otherValue = problem.getHValue(otherNode.getState()) + otherNode.getCost();
+			if (otherValue >= fValue) {
+				break;
+			}
+		}
+		
+		open.add(i, node);
 	}
 
 	private void addNodeBFS(GPSNode node) {
@@ -52,5 +70,5 @@ public class SokobanEngine extends GPSEngine {
 	
 	private void addNodeDFS(GPSNode node) {
 		open.add(0, node);
-	}	
+	}
 }
