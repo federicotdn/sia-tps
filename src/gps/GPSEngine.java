@@ -50,9 +50,9 @@ public abstract class GPSEngine {
 		}
 
 		if (finished) {
-			System.out.println("nodos totales:" + (open.size() + closed.size()));
-			System.err.println("ndos forntera:" + (open.size()));
-			System.out.println("tardo: " + (System.currentTimeMillis() - startTime) + " milisegundos");
+			System.out.println("Nodos totales:" + (open.size() + closed.size()));
+			System.err.println("Nodos forntera:" + (open.size()));
+			System.out.println("Tiempo tardado: " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			System.out.println("OK! solution found!");
 		} else if (failed) {
 			System.err.println("FAILED! solution not found!");

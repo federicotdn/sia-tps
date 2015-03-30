@@ -129,8 +129,8 @@ public class Board {
 	}
 	
 	public void validateChestCount() {
-		if (chestCount < goalCount) {
-			throw new InvalidBoardException("Chests count must be higher or equal than goals count.");
+		if (chestCount != goalCount) {
+			throw new InvalidBoardException("Chests count must be equal than goals count.");
 		}
 	}
 	
@@ -156,6 +156,17 @@ public class Board {
 			}
 		}
 		return false;
+	}
+	
+	public boolean isWallCornered(Cell cell) {
+		for (Direction[] corner : Direction.corners) {
+			Cell side1 = corner[0].getAdjacentCell(this, cell);
+			Cell side2 = corner[1].getAdjacentCell(this, cell);
+			if (side1.isWall() && side2.isWall()) {
+				return true;
+			}
+		}
+		return false;	
 	}
 	
 	public Integer getHValue() {
