@@ -50,9 +50,7 @@ public class DistanceOnlyHeuristic extends SokobanHeuristic {
 		Integer minDist = null;
 		for (Cell chest : chests) {
 			int dist = getMDistance(chest, goal);
-			if (minDist == null) {
-				minDist = dist;
-			} else if (dist < minDist) {
+			if (minDist == null || dist < minDist) {
 				minDist = dist;
 			}
 		}
