@@ -4,6 +4,5 @@ public enum SearchStrategy {
 	BFS,
 	DFS,
 	AStar,
-	Greedy,
-	Iterative
+	Greedy
 }

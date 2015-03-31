@@ -13,14 +13,14 @@ public abstract class GPSEngine {
 
 	protected List<GPSNode> open = new LinkedList<GPSNode>();
 
-	protected List<GPSNode> closed = new ArrayList<GPSNode>();
+	private List<GPSNode> closed = new ArrayList<GPSNode>();
 
 	protected GPSProblem problem;
 
 	// Use this variable in the addNode implementation
 	protected SearchStrategy strategy;
 
-	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
+	public void start(GPSProblem myProblem, SearchStrategy myStrategy) {
 
 		problem = myProblem;
 		strategy = myStrategy;
@@ -50,13 +50,72 @@ public abstract class GPSEngine {
 		}
 
 		if (finished) {
-			System.out.println("Nodos totales:" + (open.size() + closed.size()));
-			System.err.println("Nodos forntera:" + (open.size()));
+			System.out.println("Nodos totales: " + (open.size() + closed.size()));
+			System.out.println("Nodos forntera: " + (open.size()));
 			System.out.println("Tiempo tardado: " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			System.out.println("OK! solution found!");
 		} else if (failed) {
 			System.err.println("FAILED! solution not found!");
 		}
+	}
+	
+	public void startIterative(GPSProblem problem) {
+		this.problem = problem;
+		this.strategy = SearchStrategy.DFS;
+		
+		long startTime = System.currentTimeMillis();
+		boolean finished = false;
+		long level = 1;
+		int exploded = 0;
+		
+		while (!finished) {
+			exploded = 0;
+			open.clear();
+			GPSNode initial = new GPSNode(problem.getInitState(), 0);
+			open.add(initial);
+			
+			while (!open.isEmpty()) {
+				GPSNode node = open.remove(0);
+				if (node.getCost() < level) {
+					exploded += explodeIterative(node);
+				} else if (isGoal(node)) {
+					finished = true;
+					break;
+				}
+			}
+			
+			level++;
+		}
+		
+		if (finished) {
+			System.out.println("Nodos totales: " + exploded);
+			System.out.println("Nodos frontera: " + (open.size()));
+			System.out.println("Nivel: " + level);
+			System.out.println("Tiempo tardado: " + (System.currentTimeMillis() - startTime) + " milisegundos");
+			System.out.println("OK! solution found!");
+		}
+	}
+	
+	private int explodeIterative(GPSNode node) {
+		int counter = 0;
+		
+		for (GPSRule rule : problem.getRules()) {
+			GPSState newState = null;
+			try {
+				newState = rule.evalRule(node.getState());
+			} catch (NotAppliableException e) {
+				// Do nothing
+			}
+			
+			if (newState != null && !checkBranch(node, newState)) {
+				GPSNode newNode = new GPSNode(newState, node.getCost() + rule.getCost());
+				newNode.setParent(node);
+				addNode(newNode);
+				counter++;
+			}
+		}
+		
+		return counter;
 	}
 
 	private  boolean isGoal(GPSNode currentNode) {
@@ -110,7 +169,7 @@ public abstract class GPSEngine {
 			return false;
 		}
 		return checkBranch(parent.getParent(), state)
-				|| state.compare(parent.getState()); // cambiar el orden de las condiciones?
+				|| state.compare(parent.getState());
 	}
 
 	public abstract void addNode(GPSNode node);
