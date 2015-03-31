@@ -24,3 +24,9 @@ P = Jugador (debe haber exactamente uno)
 G = Casillero objetivo
 C = Caja (deben haber tantas cajas como casilleros objetivos).
 Para incluir un nuevo mapa en el proyecto, reemplazar alguno de los mapas includos con el nuevo mapa (utilizar el mismo nombre).
+
+Estructura del Proyecto:
+
+src - Codigo Fuente
+docs - Documentos: enunciado, informe y presentacion
+maps - Mapas incluidos con el proyecto
