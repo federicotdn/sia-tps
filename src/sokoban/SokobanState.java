@@ -16,8 +16,6 @@ public class SokobanState implements GPSState {
 		if (canEvalRule(rule)) {
 			SokobanState st = new SokobanState(board.clone());
 			st.getBoard().movePlayer(rule.getDirection());
-			System.out.println("new state:");
-			BoardSerializer.printBoard(st.getBoard());
 			return st;
 		}
 		throw new NotAppliableException();
@@ -54,5 +52,10 @@ public class SokobanState implements GPSState {
 	public boolean checkSecondMove(Direction direction, Cell cell) {
 		Cell adjacentCell = direction.getAdjacentCell(board, cell);
 		return !(adjacentCell.isWall() || adjacentCell.hasChest());
+	}
+	
+	@Override
+	public String toString() {
+		return BoardSerializer.boardToString(board);
 	}
 }

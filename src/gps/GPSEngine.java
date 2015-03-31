@@ -51,7 +51,7 @@ public abstract class GPSEngine {
 
 		if (finished) {
 			System.out.println("Nodos totales: " + (open.size() + closed.size()));
-			System.out.println("Nodos forntera: " + (open.size()));
+			System.out.println("Nodos frontera: " + (open.size()));
 			System.out.println("Tiempo tardado: " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			System.out.println("OK! solution found!");
 		} else if (failed) {
@@ -79,6 +79,7 @@ public abstract class GPSEngine {
 				if (node.getCost() < level) {
 					exploded += explodeIterative(node);
 				} else if (isGoal(node)) {
+					System.out.println(node.getSolution());
 					finished = true;
 					break;
 				}

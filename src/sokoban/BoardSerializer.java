@@ -82,7 +82,8 @@ public class BoardSerializer {
 		}
 	}
 
-	public static void printBoard(Board board) {
+	public static String boardToString(Board board) {
+		StringBuffer buf = new StringBuffer();
 		for (Cell[] row : board.getRows()) {
 			for (Cell cell : row) {
 				BoardEntity ent = cell.getBoardEntity();
@@ -90,28 +91,30 @@ public class BoardSerializer {
 				if (ent != null) {
 					switch (ent) {
 					case CHEST:
-						System.out.print(CHEST);
+						buf.append(CHEST);
 						break;
 					case PLAYER:
-						System.out.print(PLAYER);
+						buf.append(PLAYER);
 						break;
 					}						
 				} else {
 					switch (cell.getCellType()) {
 					case WALL:
-						System.out.print(WALL);
+						buf.append(WALL);
 						break;
 					case EMPTY:
-						System.out.print(EMPTY);
+						buf.append(EMPTY);
 						break;
 					case GOAL:
-						System.out.print(GOAL);
+						buf.append(GOAL);
 						break;
 					}
 				}
 			}
 			
-			System.out.println();
+			buf.append('\n');
 		}
+		
+		return buf.toString();
 	}
 }
