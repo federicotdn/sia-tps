@@ -1,0 +1,35 @@
+==    Sistemas de Inteligencia Artificial    ==
+==              Trabajo Práctico 2           ==
+==                Redes Neuronales           ==
+==                Manual de uso              ==
+
+El proyecto fue implementado utilizando Python 3.4, y utilizando funciones de la librerías NumPy y matplotlib.
+Para ejecutar el codigo se debe contar con un intérprete de Python 3.4.  El proyecto se 
+probó exclusivamente con CPython (https://www.python.org/download), el intérprete de Python oficial.
+
+Tambien se debe contar con la librerías NumPy y matplotlib.  Ambas pueden ser descargadas con pip, el administrador de paquetes 
+de Python, con el siguiente comando:
+	
+	pip install numpy matplotlib
+	
+En algunos casos es necesario especificar la version de Python/Pip a utilizar:
+
+	pip3 install numpy matplotlib
+	
+
+La librería NumPy tambien se puede instalar a partir de su código fuente.  Primero, se debe descargar el 
+código (http://sourceforge.net/projects/numpy/files/NumPy/), y se debe construir a partir de las 
+instrucciones incluidas en el mismo (ejecutar python3 setup.py build).  Luego, en la carpeta 'build' se 
+encontrará otra carpeta cuyo nombre empieza con 'lib', en donde se encontrara a su vez la carpeta 'numpy'
+con la librería construida.  Ésta carpeta debe ser copiada al directorio 'src' del proyecto para finalizar
+la instalación.
+
+Una vez instalados el intérprete y la librería, invocar el programa del proyecto:
+
+	python3 main.py
+
+En caso de obtener el error: ‘ValueError: unknown locale: UTF-8' al ejecutar, configurar las siguientes variables
+de entorno: 
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
