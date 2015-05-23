@@ -19,5 +19,3 @@ function individuals = init_individuals(individuals_qty, rand_limit, arch)
 		individuals{end + 1} = individual;
 	endfor
 endfunction
-
-init();
