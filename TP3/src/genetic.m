@@ -1,9 +1,12 @@
 source('parser.m');
 
 function genetic = init()
-	[rand_limit, arch, individuals_qty] = parse();
+	[rand_limit, arch, individuals_qty, replacement_method, mutation_prob] = parse();
 	genetic.arch = arch;
 	genetic.individuals = init_individuals(individuals_qty, rand_limit, arch);
+	genetic.generation  = 1;
+	genetic.replacement_method = replacement_method;
+	genetic.mutation_prob = mutation_prob;
 endfunction
 
 function individuals = init_individuals(individuals_qty, rand_limit, arch)
