@@ -2,7 +2,7 @@ source("elite.m")
 source("roulette.m")
 source("universal.m")
 
-function selected = mixed(fitnesses, k, n, roul)
+function selected = mixed(fitnesses, k, n, rou)
 	selected = [];
 	selected = elite(fitnesses, n);
 	if rou
