@@ -4,3 +4,4 @@ individuals_qty=20
 replacement_method=1
 max_generations=100
 mutation_prob=0.03
+range=10,45,0.5

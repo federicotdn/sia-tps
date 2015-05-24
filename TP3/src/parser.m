@@ -1,4 +1,4 @@
-function [rand_limit ,arch, individuals_qty, replacement_method, mutation_prob] = parse()
+function [rand_limit ,arch, individuals_qty, replacement_method, mutation_prob, range] = parse()
 	fid = fopen ("config.txt", "r");
 	while (!feof (fid))
   	line = fgetl (fid);
@@ -18,6 +18,9 @@ function [rand_limit ,arch, individuals_qty, replacement_method, mutation_prob] 
         max_generations = str2double(value);
       case "mutation_prob"
         mutation_prob = str2double(value);
+      case "range"
+        aux = parse2array(strsplit(value, ","));
+        range = (aux(1):aux(3):aux(2));
   	end
 	endwhile
 fclose (fid);
