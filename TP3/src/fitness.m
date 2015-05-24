@@ -1,4 +1,5 @@
 function genetic = calculate_fitnesses(genetic)
+	genetic.individuals.fitnesses = [];
 	for individual = genetic.individuals.weights
 		new_individual = individual_array_to_cell_array(individual{1}, genetic.arch);
 		output = feed_forward(new_individual, genetic.range);
