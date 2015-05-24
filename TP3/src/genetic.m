@@ -3,7 +3,9 @@ source('parser.m');
 function genetic = init()
 	[rand_limit, arch, individuals_qty, replacement_method, mutation_prob, range] = parse();
 	genetic.arch = arch;
-	genetic.individuals = init_individuals(individuals_qty, rand_limit, arch);
+	individuals.weights = init_weights(individuals_qty, rand_limit, arch);
+	individuals.fitnesses = [];
+	genetic.individuals = individuals;
 	genetic.generation  = 1;
 	genetic.replacement_method = replacement_method;
 	genetic.mutation_prob = mutation_prob;
@@ -11,14 +13,14 @@ function genetic = init()
 	genetic.expected_outputs = calc_expected_outputs(range);
 endfunction
 
-function individuals = init_individuals(individuals_qty, rand_limit, arch)
-	individuals = {};
+function weights = init_weights(individuals_qty, rand_limit, arch)
+	weights = {};
 	for i = 1:individuals_qty
-		individual = [];
+		weight = [];
 		for j = 1:length(arch) -1
-			individual = [individual, (rand(1, (arch(j) + 1)* arch(j+1))* (2*rand_limit)) - rand_limit];
+			weight = [weight, (rand(1, (arch(j) + 1)* arch(j+1))* (2*rand_limit)) - rand_limit];
 		endfor
-		individuals{end + 1} = individual;
+		weights{end + 1} = weight;
 	endfor
 endfunction
 

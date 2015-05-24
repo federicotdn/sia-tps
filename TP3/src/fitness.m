@@ -1,9 +1,8 @@
-function fitnesses = calculate_fitnesses(individuals, arch, range, expected_outputs)
-	fitnesses = []
-	for individual = individuals
-		new_individual = individual_array_to_cell_array(individual{1}, arch);
-		output = feed_forward(new_individual, range);
-		fitnesses(end + 1) = 1/((1/(2*length(range)))*sum((expected_outputs - output).^2));
+function genetic = calculate_fitnesses(genetic)
+	for individual = genetic.individuals.weights
+		new_individual = individual_array_to_cell_array(individual{1}, genetic.arch);
+		output = feed_forward(new_individual, genetic.range);
+		genetic.individuals.fitnesses(end + 1) = 1/((1/(2*length(genetic.range)))*sum((genetic.expected_outputs - output).^2));
 	end
 end
 
