@@ -1,12 +1,11 @@
 % Mutation functions for GA
-% individuals is the individuals struct (.fitnesses[], .weights{})
 
-function mut_individuals = mutate_classic(individuals, mut_p)
-	mut_individuals.fitnesses = []
-	mut_individuals.weights = {}
-
-
+function mut_individual = mutate_classic(individual, mut_p, mut_range)
+	mut_chosen = rand(1, length(individual)) < mut_p
+	mut_values = (rand(1, length(individual)) * (mut_range * 2)) - mut_range
+	mut_coef = mut_chosen .* mut_values
+	mut_individual = (individual .* mut_coef) + ((1 - mut_chosen) .* individual)
 end
 
-function mut_individuals = mutate_non_uniform(individuals, mut_p, generation)
+function mut_individual = mutate_non_uniform(individual, mut_p, generation)
 end
