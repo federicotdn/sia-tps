@@ -28,5 +28,3 @@ function relative_fitness = relative_fitness(fitnesses)
 		relative_fitness(i) = fitnesses(i)/sum(fitnesses);
 	endfor
 endfunction
-
-roulette([4,3,6,8,2,4],4)
