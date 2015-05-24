@@ -47,7 +47,7 @@ function relative_fitness = relative_fitness(fitnesses)
 	endfor
 endfunction
 
-function selected = tournament(fitnesses, k, m)
+function selected = deterministic_tournament(fitnesses, k, m)
 	selected = [];
 	contenders = [];
 	contender_index = [];
@@ -57,6 +57,23 @@ function selected = tournament(fitnesses, k, m)
 			contenders(i) = fitnesses(contender_index(i));
 		endfor
 		selected(end+1) = find(max(contenders) == fitnesses)(1)
+	endfor
+endfunction
+
+function selected = probabilistic_tournament(fitnesses,k)
+	selected = [];
+	contenders = [];
+	contender_index = [];
+	for i = 1:k
+		contender_index = ceil(rand(1,2)*length(fitnesses));
+		for i = 1:m
+			contenders(i) = fitnesses(contender_index(i));
+		endfor
+		if rand < 0.75
+			selected(end+1) = find(max(contenders) == fitnesses)(1);
+		else
+			selected(end+1) = find(min(contenders) == fitnesses)(1);
+		endif
 	endfor
 endfunction
 

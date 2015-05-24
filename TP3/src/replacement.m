@@ -12,10 +12,14 @@ function population = first_replacement(genetic)
 		endif
 		mother = genetic.individuals{selected(1)};
 		father = genetic.individuals{selected(2)};
+		%aca hay que hacer el selector del cruce
 		new_offsprings = genetic.cross(mother,father);
 		for i = 1:length(new_offsprings)
+			%suponiendo que tenemos el metodo de mutacion en la genetica
 			offsprings{end+1} = genetic.mutation(new_offsprings{i});
 		endfor
 	while length(offsprings) < length(genetic.individuals)
+	genetic.individuals = offsprings;
+	%aca hay que recaulcular los fitneses y listouuu
 
 endfunction
