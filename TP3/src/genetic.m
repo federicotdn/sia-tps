@@ -32,9 +32,11 @@ endfunction
 
 function expected_outputs = calc_expected_outputs(range)
 	for i=1:length(range)
-		expected_outputs(i)= ((sin(range(i))*range(i)**3) + (range(i)/2));
+		% expected_outputs(i)= ((sin(range(i))*range(i)**3) + (range(i)/2));
+		% expected_outputs(i) = range(i)^3 - 2*range(i)^6 + sin(5*range(i));
+		expected_outputs(i) = (range(i) + 2 * range(i)^2 + 3*range(i)^3);
 	endfor
-	max_abs_output = max(max(expected_outputs), abs(min(expected_outputs)));
-	expected_outputs = expected_outputs/max_abs_output;
+	% max_abs_output = max(max(expected_outputs), abs(min(expected_outputs)));
+	% expected_outputs = expected_outputs/max_abs_output;
 	expected_outputs = expected_outputs';
 end

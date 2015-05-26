@@ -12,14 +12,14 @@ function genetic = first_replacement(genetic)
 				selected = roulette(genetic.individuals.fitnesses,2);
 			case 'tournament_deterministic'
 				selected = elite(genetic.individuals.fitnesses,2,genetic.tournament_contenders);
-			case 'mixes'
-				selected = elite(genetic.individuals.fitnesses,2, genetic.mixed_elite, genetic.mixec_reoulette);
+			case 'mixed'
+				selected = elite(genetic.individuals.fitnesses,2, genetic.mixed_elite, genetic.mixed_reoulette);
 		endswitch
 		mother = genetic.individuals.weights{selected(1)};
 		father = genetic.individuals.weights{selected(2)};
 		new_offsprings = feval(genetic.cross_function,mother,father);
 		for i = 1:length(new_offsprings)
-			offsprings{end+1} = mutate_classic(new_offsprings{i},0.05,0.1);
+			offsprings{end + 1} = mutate_classic(new_offsprings{i},0.05,0.1);
 		endfor
 	endwhile
 	genetic.individuals.weights = offsprings;
