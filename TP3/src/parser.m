@@ -35,18 +35,26 @@ function config = parse_config()
       case 'range'
         aux = parse_to_array(strsplit(value, ','));
         config.range = (aux(1):aux(2):aux(3));
-  	  case 'selection'
-        config.selection = parse_selection_function(value);
+      case 'cross_function'
+        config.cross_function = parse_cross_function(value);
+      case 'selection'
+        config.selection = value;
       case 'selection_k'
         config.selection_k = str2double(value);
       case 'tournament_m'
         config.tournament_m = str2double(value);
+      case 'mixed_n'
+        config.mixed_n = str2double(value);
+      case 'mixed_roul'
+        config.mixed_roul = str2double(value);
       case 'replacement_selection'
-        config.replacement_selection = parse_selection_function(value);
+        config.replacement_selection = value;
       case 'replacement_tournament_m'
         config.replacement_tournament_m = str2double(value);
-      case 'cross_function'
-        config.cross_function = parse_cross_function(value);
+      case 'replacement_mixed_n'
+        config.replacement_mixed_n = str2double(value);
+      case 'replacement_mixed_roul'
+        config.replacement_mixed_roul = str2double(value);
     end
 	end
 
@@ -72,30 +80,13 @@ function fn = parse_cross_function(string)
   end
 end
 
-function fn = parse_selection_function(string)
-  switch string
-    case 'elite'
-      fn = @elite;
-    case 'mixed'
-      fn = @mixed;
-    case 'roulette'
-      fn = @roulette;
-    case 'deterministic_tournament'
-      fn = @deterministic_tournament
-    case 'probabilistic_tournament'
-      fn = @probabilistic_tournament
-    case 'universal'
-      fn = @universal
-  end
-end
-
 function fn = parse_replacement_function(string)
   switch string
     case 'method1'
-      fn = @method1
+      fn = @method1;
     case 'method2'
-      fn = @method2
+      fn = @method2;
     case 'method3'
-      fn = @method3
+      fn = @method3;
   end
 end

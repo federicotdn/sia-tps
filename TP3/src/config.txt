@@ -2,18 +2,20 @@
 % Use '%' to comment a line
 
 % General parameters
-arch=1,35,10,1
+arch=1,10,1
 rand_limit=0.5
 population_size=20
 max_generations=10000
 % Range: MIN, STEP, MAX
-range=10,0.5,40
+range=-4,0.1,4
 
 % Selection related parameters
 selection=elite
 % k is also used in the replacement methods
 selection_k=8
 tournament_m=0
+mixed_n=4
+mixed_roul=1
 
 % Cross function related parameters
 cross_function=one_point
@@ -26,4 +28,5 @@ mutation_range=0.25
 replacement_method=method2
 replacement_selection=elite
 replacement_tournament_m=0
-
+replacement_mixed_n=4
+replacement_mixed_roul=1

@@ -13,10 +13,10 @@ g = genetic; % shorter alias
 
 while g.generation < g.max_generations % TODO: change condition
 
-	% TODO: Use the selection function specified on config file
-	selected = elite(genetic.individuals.fitnesses, g.selection_k);
+	selected = smart_call_select(genetic, g.selection_k);
 
 	% TODO: Change how parents are crossed/selected from the K selected individuals
+	% for now, K must be even
 	indices = (1: (g.selection_k / 2)) * 2;
 	mut_children = {};
 	for in = indices
@@ -31,7 +31,7 @@ while g.generation < g.max_generations % TODO: change condition
 		end
 	end
 
-	new_weights = genetic.replacement_method(genetic, mut_children)
+	new_weights = genetic.replacement_method(genetic, mut_children);
 
 	genetic.individuals.weights = new_weights;
 	genetic = calculate_fitnesses(genetic);
@@ -42,11 +42,9 @@ while g.generation < g.max_generations % TODO: change condition
 	% ======= DEBUG SECTION =======
 	% =============================
 
-	prom = sum(genetic.individuals.fitnesses) / length(genetic.individuals.fitnesses);
-	disp(prom)
-
 	if mod(g.generation, 50) == 0
 		[m, index] = max(genetic.individuals.fitnesses);
+		disp(m);
 		all_best(end + 1) = m;
 
 		best = genetic.individuals.weights{index};

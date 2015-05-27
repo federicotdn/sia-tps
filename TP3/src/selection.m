@@ -60,7 +60,7 @@ function selected = deterministic_tournament(fitnesses, k, m)
 	endfor
 endfunction
 
-function selected = probabilistic_tournament(fitnesses,k)
+function selected = probabilistic_tournament(fitnesses, k)
 	selected = [];
 	contenders = [];
 	contender_index = [];
