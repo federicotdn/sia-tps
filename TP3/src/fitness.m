@@ -1,15 +1,13 @@
 function genetic = calculate_fitnesses(genetic)
 	genetic.individuals.fitnesses = [];
-	for individual = genetic.individuals.weights
-		new_individual = individual_array_to_cell_array(individual{1}, genetic.arch);
-		output = feed_forward(new_individual, genetic.range);
-		genetic.individuals.fitnesses(end + 1) = 1/((1/(2*length(genetic.range)))*sum((genetic.expected_outputs - output).^2));
+	for weight = genetic.individuals.weights
+		genetic.individuals.fitnesses(end + 1) = fitness(weight{1}, genetic);
 	end
 end
 
-function ans = fitness(individual, arch, range, expected_outputs)
-	for i = 1:length(arch) -1
-	endfor
+function fitness = fitness(individual, genetic)
+	output = feed_forward(individual, genetic.arch, genetic.range);
+	fitness =  1/((1/(length(genetic.range)))*sum((genetic.expected_outputs - output).^2));
 endfunction
 
 function new_individual = individual_array_to_cell_array(individual, arch)
@@ -23,7 +21,8 @@ function new_individual = individual_array_to_cell_array(individual, arch)
 	endfor
 endfunction
 
-function output = feed_forward(weights, range)
+function output = feed_forward(individual, arch, range)
+	weights = individual_array_to_cell_array(individual, arch);
 	inputs{1} = [(ones(size(range',1),1)*-1) range'];
 	outputs= {};
 	for i = 1:length(weights)
@@ -36,4 +35,5 @@ function output = feed_forward(weights, range)
 	inputs{end + 1} = outputs{end};
 	outputs{end + 1} = tanh(inputs{end});
 	output = outputs{end};
+
 end
