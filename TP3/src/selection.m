@@ -11,8 +11,8 @@ function selected = mixed(fitnesses, k, n, roul)
 	selected = elite(fitnesses, n);
 	if roul
 		selected = [selected, roulette(fitnesses,(k-n))];
- 	else 	
- 	 	selected = [selected, universal(fitnesses,(k-n))]; 
+ 	else
+ 	 	selected = [selected, universal(fitnesses,(k-n))];
 	endif
 endfunction
 

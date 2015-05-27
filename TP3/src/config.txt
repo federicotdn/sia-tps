@@ -1,12 +1,19 @@
-arch=1,15,1
+% Configuration file for GA
+% Use '%' to comment
+
+arch=1,35,10,1
 rand_limit=0.5
-individuals_qty=10
+population_size=20
 replacement_method=1
-max_generations=200000
+max_generations=100
 mutation_prob=0.03
-range=-1,1,0.1
+mutation_range=0.25
+
+% Range: MIN, STEP, MAX
+range=10,0.5,40
+
 selection=roulette
-selection_k=2
+selection_k=8
 tournament_m=0
 replacement_selection=roulette
 replacement_tournament_m=0
