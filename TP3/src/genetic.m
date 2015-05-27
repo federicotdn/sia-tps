@@ -12,6 +12,7 @@ function genetic = init()
 	genetic.mutation_prob = config.mutation_prob;
 	genetic.mutation_range = config.mutation_range;
 	genetic.range = config.range;
+	genetic.max_generations = config.max_generations;
 	genetic.expected_outputs = calc_expected_outputs(config.range);
 	genetic.selection = config.selection;
 	genetic.selection_k = config.selection_k;

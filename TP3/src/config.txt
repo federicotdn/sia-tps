@@ -5,7 +5,7 @@ arch=1,35,10,1
 rand_limit=0.5
 population_size=20
 replacement_method=1
-max_generations=100
+max_generations=10000
 mutation_prob=0.03
 mutation_range=0.25
 

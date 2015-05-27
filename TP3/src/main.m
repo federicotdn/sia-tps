@@ -11,7 +11,7 @@ genetic = init();
 genetic = calculate_fitnesses(genetic);
 g = genetic; % shorter alias
 
-while g.generation < 100000 % TODO: change condition
+while g.generation < g.max_generations % TODO: change condition
 
 	% TODO: Use the selection function specified on config file
 	selected = elite(genetic.individuals.fitnesses, g.selection_k);
