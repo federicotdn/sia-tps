@@ -43,3 +43,8 @@ function expected_outputs = calc_expected_outputs(range)
 	expected_outputs = expected_outputs/max_abs_output;
 	expected_outputs = expected_outputs';
 end
+
+% smart_select calls selection_fn passing the appropiate parameters
+function selected = smart_select(selection_fn)
+	switch selection_fn
+end

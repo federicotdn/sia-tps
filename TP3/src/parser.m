@@ -2,6 +2,7 @@
 
 source('crossover.m');
 source('selection.m');
+source('replacement.m')
 
 function config = parse_config()
 	fid = fopen('config.txt', 'r');
@@ -24,7 +25,7 @@ function config = parse_config()
       case 'population_size'
         config.population_size = str2double(value);
       case 'replacement_method'
-        config.replacement_method = str2double(value);
+        config.replacement_method = parse_replacement_function(value);
       case 'max_generations'
         config.max_generations = str2double(value);
       case 'mutation_prob'
@@ -35,13 +36,13 @@ function config = parse_config()
         aux = parse_to_array(strsplit(value, ','));
         config.range = (aux(1):aux(2):aux(3));
   	  case 'selection'
-        config.selection = value;
+        config.selection = parse_selection_function(value);
       case 'selection_k'
         config.selection_k = str2double(value);
       case 'tournament_m'
         config.tournament_m = str2double(value);
       case 'replacement_selection'
-        config.replacement_selection = value;
+        config.replacement_selection = parse_selection_function(value);
       case 'replacement_tournament_m'
         config.replacement_tournament_m = str2double(value);
       case 'cross_function'
@@ -85,5 +86,16 @@ function fn = parse_selection_function(string)
       fn = @probabilistic_tournament
     case 'universal'
       fn = @universal
+  end
+end
+
+function fn = parse_replacement_function(string)
+  switch string
+    case 'method1'
+      fn = @method1
+    case 'method2'
+      fn = @method2
+    case 'method3'
+      fn = @method3
   end
 end
