@@ -51,11 +51,8 @@ while generations < 100000
 		all_best(end + 1) = m;
 
 		best = genetic.individuals.weights{index};
-
 		r = genetic.range;
-		best2 = individual_array_to_cell_array(best, genetic.arch);
-
-		results = feed_forward(best2, r);
+		results = feed_forward(best, genetic.arch, r);
 
 		subplot (2, 1, 1)
 		plot(r, results, r, genetic.expected_outputs);
