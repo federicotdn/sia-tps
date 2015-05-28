@@ -5,7 +5,7 @@
 arch=1,10,1
 rand_limit=0.5
 population_size=20
-max_generations=10000
+max_generations=1000000
 % Range: MIN, STEP, MAX
 range=-4,0.1,4
 
@@ -21,8 +21,11 @@ mixed_roul=1
 cross_function=one_point
 
 % Mutation related parameters
-mutation_prob=0.03
+mutation_function=classic
+mutation_prob=0.1
 mutation_range=0.25
+mutation_alpha=100
+mutation_beta=0.01
 
 % Replacement function related parameters
 replacement_method=method2

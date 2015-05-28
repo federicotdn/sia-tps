@@ -13,6 +13,9 @@ function genetic = init()
 	genetic.mutation_prob = config.mutation_prob;
 	genetic.mutation_range = config.mutation_range;
 	genetic.range = config.range;
+	genetic.mutation_function = config.mutation_function;
+	genetic.mutation_alpha = config.mutation_alpha;
+	genetic.mutation_beta = config.mutation_beta;
 	genetic.max_generations = config.max_generations;
 	genetic.expected_outputs = calc_expected_outputs(config.range);
 	genetic.selection = config.selection;
@@ -51,6 +54,15 @@ function expected_outputs = calc_expected_outputs(range)
 	max_abs_output = max(max(expected_outputs), abs(min(expected_outputs)));
 	expected_outputs = expected_outputs/max_abs_output;
 	expected_outputs = expected_outputs';
+end
+
+function mut_individual = smart_call_mutate(g, child)
+	switch g.mutation_function
+		case 'classic'
+			mut_individual = mutate_classic(child, g.mutation_prob, g.mutation_range);
+		case 'non_uniform'
+			mut_individual = mutate_non_uniform(child, g.generation, g.population_size, g.mutation_alpha, g.mutation_beta, g.mutation_range);
+	end
 end
 
 function selected = smart_call_select(genetic, k)

@@ -32,6 +32,12 @@ function config = parse_config()
         config.mutation_prob = str2double(value);
       case 'mutation_range'
         config.mutation_range = str2double(value);
+      case 'mutation_function'
+        config.mutation_function = value;
+      case 'mutation_alpha'
+        config.mutation_alpha = str2double(value);
+      case 'mutation_beta'
+        config.mutation_beta = str2double(value);
       case 'range'
         aux = parse_to_array(strsplit(value, ','));
         config.range = (aux(1):aux(2):aux(3));

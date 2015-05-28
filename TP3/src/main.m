@@ -25,9 +25,7 @@ while g.generation < g.max_generations % TODO: change condition
 		children = feval(genetic.cross_function, mother, father);
 
 		for i = 1:length(children)
-			% TODO: Use the mutation function specified on config file
-			% new_weights{end + 1} = mutate_non_uniform(children{i}, g.generation, N, 10000, 0.1, 0.25);
-			mut_children{end + 1} = mutate_classic(children{i}, 0.1, 0.25);
+			mut_children{end + 1} = smart_call_mutate(genetic, children{i});
 		end
 	end
 
