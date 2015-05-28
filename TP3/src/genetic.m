@@ -3,31 +3,42 @@ source('selection.m')
 
 function genetic = init()
 	config = parse_config();
+
+	% General parameters
 	genetic.arch = config.arch;
 	individuals.weights = init_weights(config.population_size, config.rand_limit, config.arch);
 	individuals.fitnesses = [];
 	genetic.individuals = individuals;
 	genetic.population_size = config.population_size;
 	genetic.generation = 1;
-	genetic.replacement_method = config.replacement_method;
-	genetic.mutation_prob = config.mutation_prob;
-	genetic.mutation_range = config.mutation_range;
 	genetic.range = config.range;
-	genetic.mutation_function = config.mutation_function;
-	genetic.mutation_alpha = config.mutation_alpha;
-	genetic.mutation_beta = config.mutation_beta;
 	genetic.max_generations = config.max_generations;
 	genetic.expected_outputs = calc_expected_outputs(config.range);
+
+	% Selection
 	genetic.selection = config.selection;
 	genetic.selection_k = config.selection_k;
 	genetic.tournament_m = config.tournament_m;
 	genetic.mixed_n = config.mixed_n;
 	genetic.mixed_roul = config.mixed_roul;
+
+	% Cross
+	genetic.cross_function = config.cross_function;
+	genetic.cross_prob = config.cross_prob;
+
+	% Mutation
+	genetic.mutation_prob = config.mutation_prob;
+	genetic.mutation_range = config.mutation_range;
+	genetic.mutation_function = config.mutation_function;
+	genetic.mutation_alpha = config.mutation_alpha;
+	genetic.mutation_beta = config.mutation_beta;
+
+	% Replacement
+	genetic.replacement_method = config.replacement_method;
 	genetic.replacement_selection = config.replacement_selection;
 	genetic.replacement_tournament_m = config.replacement_tournament_m;
 	genetic.replacement_mixed_n = config.replacement_mixed_n;
 	genetic.replacement_mixed_roul = config.replacement_mixed_roul;
-	genetic.cross_function = config.cross_function;
 end
 
 function weights = init_weights(population_size, rand_limit, arch)

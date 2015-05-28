@@ -15,18 +15,20 @@ while g.generation < g.max_generations % TODO: change condition
 
 	selected = smart_call_select(genetic, g.selection_k);
 
-	% TODO: Change how parents are crossed/selected from the K selected individuals
-	% for now, K must be even
-	indices = (1: (g.selection_k / 2)) * 2;
 	mut_children = {};
-	for in = indices
-		father = genetic.individuals.weights{selected(in - 1)};
-		mother = genetic.individuals.weights{selected(in)};
-		children = feval(genetic.cross_function, mother, father);
+	iterations = 1: ceil(g.selection_k / 2);
+	for i = iterations
+		selected_pair = randperm(length(selected), 2);
+		father = genetic.individuals.weights{selected_pair(1)};
+		mother = genetic.individuals.weights{selected_pair(2)};
+		children = genetic.cross_function(mother, father);
 
-		for i = 1:length(children)
-			mut_children{end + 1} = smart_call_mutate(genetic, children{i});
-		end
+		mut_children{end + 1} = smart_call_mutate(genetic, children{1});
+		mut_children{end + 1} = smart_call_mutate(genetic, children{2});
+	end
+
+	if mod(g.selected_k, 2) == 1
+
 	end
 
 	new_weights = genetic.replacement_method(genetic, mut_children);
