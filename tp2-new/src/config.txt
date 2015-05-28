@@ -1,0 +1,8 @@
+arch=1,15,1
+eta=0.1
+beta_fn=0.5
+act_fn=tanh
+max_epochs=50000
+min_cuadratic_error=0.001
+range=-4,0.1,4
+rand_limit=0.01
