@@ -1,20 +1,36 @@
 % Configuration file for GA
-% Use '%' to comment
+% Use '%' to comment a line
 
-arch=1,35,10,1
+% General parameters
+arch=1,10,1
 rand_limit=0.5
-population_size=20
-replacement_method=1
-max_generations=10000
-mutation_prob=0.03
-mutation_range=0.25
-
+population_size=30
+max_generations=1000000
 % Range: MIN, STEP, MAX
-range=10,0.5,40
+range=-4,0.1,4
 
-selection=roulette
-selection_k=8
+% Selection related parameters
+selection=elite
+% k is also used in the replacement methods (N - k)
+selection_k=14
 tournament_m=0
-replacement_selection=roulette
-replacement_tournament_m=0
+mixed_n=4
+mixed_roul=1
+
+% Cross function related parameters
 cross_function=one_point
+cross_prob=1
+
+% Mutation related parameters
+mutation_function=classic
+mutation_prob=0.12
+mutation_range=0.2
+mutation_alpha=100
+mutation_beta=0.01
+
+% Replacement function related parameters
+replacement_method=method2
+replacement_selection=elite
+replacement_tournament_m=0
+replacement_mixed_n=4
+replacement_mixed_roul=1
