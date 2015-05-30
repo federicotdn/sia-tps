@@ -47,6 +47,22 @@ function relative_fitness = relative_fitness(fitnesses)
 	endfor
 endfunction
 
+function selected = boltzman(fitnesses, k, temprature)
+	selected = [];
+	relative_boltzman = relative_boltzman(fitnesses, temprature);
+	cumulative_boltzman = cumsum(relative_boltzman);	
+	rands = rnaad(1,k)*max(relative_boltzman);
+	for i = 1:k
+		selected(end+1) = roulette_check(rands(i), cumulative_boltzman);
+	endfor
+end
+
+function relative_boltzman = relative_boltzman(fitnesses, temprature)
+	relative_boltzman = exp(fitnesses/temprature);
+	relative_boltzman = relative_boltzman/mean(relative_boltzman);
+endfunction
+
+
 function selected = deterministic_tournament(fitnesses, k, m)
 	selected = [];
 	contenders = [];
