@@ -1,5 +1,6 @@
 source('parser.m');
 source('selection.m')
+source('mutation.m')
 
 function genetic = init()
 	config = parse_config();
@@ -94,7 +95,7 @@ function selected = smart_call_replacement_select(genetic, k)
 	selected = smart_call_select_generic(genetic, selection_params);
 end
 
-% _smart_call_select_generic calls a selection function passing the appropiate parameters
+% smart_call_select_generic calls a selection function passing the appropiate parameters
 function selected = smart_call_select_generic(genetic, selection_params)
 	switch selection_params.selection_fn
 		case 'elite'
@@ -102,12 +103,12 @@ function selected = smart_call_select_generic(genetic, selection_params)
 		case 'mixed'
 			selected = mixed(genetic.individuals.fitnesses, selection_params.k, selection_params.mixed_n, selection_params.mixed_roul);
 		case 'roulette'
-			selection = roulette(genetic.individuals.fitnesses, selection_params.k);
+			selected = roulette(genetic.individuals.fitnesses, selection_params.k);
 		case 'deterministic_tournament'
-			selection = deterministic_tournament(genetic.individuals.fitnesses, selection_params.k, selection_params.tournament_m);
+			selected = deterministic_tournament(genetic.individuals.fitnesses, selection_params.k, selection_params.tournament_m);
 		case 'probabilistic_tournament'
-			selection = probabilistic_tournament(genetic.individuals.fitnesses, selection_params.k);
+			selected = probabilistic_tournament(genetic.individuals.fitnesses, selection_params.k);
 		case 'universal'
-			selection = universal(genetic.individuals.fitness, selection_params.k);
+			selected = universal(genetic.individuals.fitness, selection_params.k);
 	end
 end
