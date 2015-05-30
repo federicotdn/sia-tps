@@ -28,7 +28,6 @@ function network = train(network)
 		endif
 		epochs++;
 	end
-	pause();
 end
 
 function cuadratic_error = calculate_cuadratic_error(network)
@@ -36,17 +35,19 @@ function cuadratic_error = calculate_cuadratic_error(network)
 end
 
 function network  = init()
-	[eta, beta_fn, act_fn, act_fn_der, max_epochs, range, min_cuadratic_error, arch, rand_limit] = parse();
-	network.eta = eta;
-	network.beta_fn = beta_fn;
-	network.act_fn = act_fn;
-	network.act_fn_der = act_fn_der;
-	network.max_epochs = max_epochs;
-	network.range = range;
-	network.min_cuadratic_error = min_cuadratic_error;
-	network.weights = init_weights(arch, rand_limit);
-	network.inputs{1} = [(ones(size(range',1),1)*-1) range'];
-	network.expected_outputs = calc_expected_outputs(range)';
+	config = parse();
+	network.eta = config.eta;
+	network.beta_fn = config.beta_fn;
+	network.act_fn = config.act_fn;
+	network.act_fn_der = config.act_fn_der;
+	network.output_act_fn = config.output_act_fn;
+	network.output_act_fn_der = config.output_act_fn_der;
+	network.max_epochs = config.max_epochs;
+	network.range = config.range;
+	network.min_cuadratic_error = config.min_cuadratic_error;
+	network.weights = init_weights(config.arch, config.rand_limit);
+	network.inputs{1} = [(ones(size(config.range',1),1)*-1) config.range'];
+	network.expected_outputs = calc_expected_outputs(config.range)';
 end
 
 function weights = init_weights(arch, rand_limit)
@@ -58,9 +59,9 @@ end
 
 function expected_outputs = calc_expected_outputs(range)
 	for x = range
-		expected_outputs(end + 1) = sin(x)*x^3 + x/2;
+		% expected_outputs(end + 1) = sin(x)*x^3 + x/2;
 		% expected_outputs(end + 1) = sin(x) + (6 * (cos(x))^2);
-		% expected_outputs(end + 1) = tanh(0.1 * x) + sin(3*x);
+		expected_outputs(end + 1) = tanh(0.1 * x) + sin(3*x);
 		% expected_outputs(end + 1) = sin(x + 2*x^2 + 3*x^3);
 	end
 	max_output = max(abs(expected_outputs));

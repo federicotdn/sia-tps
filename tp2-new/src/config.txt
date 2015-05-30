@@ -1,8 +1,9 @@
-arch=1,35,10,1
-eta=0.00005
-beta_fn=0.05
+arch=1,10,1
+eta=0.2
+beta_fn=0.5
 act_fn=tanh
+output_act_fn=tanh
 max_epochs=50000
 min_cuadratic_error=0.001
-range=10,0.1,45
+range=-4,0.02,4
 rand_limit=0.5

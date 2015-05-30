@@ -13,3 +13,11 @@ end
 function ans  = exp_fn_der(g, beta_fn)
 	ans =  (2 .* beta_fn .*g) .* (1 - g);
 end
+
+function ans = linear(x, beta_fn)
+	ans = x;
+end
+
+function ans = linear_der(g, beta_fn)
+	ans = 1;
+end
