@@ -16,8 +16,8 @@ function network = train(network)
 		network = feed_forward_batch(network);
 		cuadratic_error(epochs) = calculate_cuadratic_error(network);
 		
-		if ( mod(epochs, 1) == 0)
-			printf('E = %f epoca = %d\n ', cuadratic_error(epochs), epochs);
+		printf('E = %f epoca = %d\n ', cuadratic_error(epochs), epochs);
+		if ( mod(epochs, 20) == 0)
 			hold on;
 			subplot(2,1,1);
 			plot(network.range, network.expected_outputs, network.range, network.outputs{end});
@@ -28,6 +28,7 @@ function network = train(network)
 		endif
 		epochs++;
 	end
+	pause();
 end
 
 function cuadratic_error = calculate_cuadratic_error(network)
@@ -50,20 +51,20 @@ end
 
 function weights = init_weights(arch, rand_limit)
 	for i = 1:length(arch) - 1
-		% weights{i} = (rand(arch(i) + 1, arch(i + 1)) * (2 * rand_limit)) - rand_limit;
-		weights{i} = ones(arch(i) + 1, arch(i + 1));
+		weights{i} = (rand(arch(i) + 1, arch(i + 1)) * (2 * rand_limit)) - rand_limit;
+		% weights{i} = ones(arch(i) + 1, arch(i + 1));
 	end
 end
 
 function expected_outputs = calc_expected_outputs(range)
 	for x = range
-		% expected_outputs(end + 1) = sin(x)*x^3 + x/2;
+		expected_outputs(end + 1) = sin(x)*x^3 + x/2;
 		% expected_outputs(end + 1) = sin(x) + (6 * (cos(x))^2);
 		% expected_outputs(end + 1) = tanh(0.1 * x) + sin(3*x);
-		expected_outputs(end + 1) = sin(x + 2*x^2 + 3*x^3);
+		% expected_outputs(end + 1) = sin(x + 2*x^2 + 3*x^3);
 	end
-	% max_output = max(abs(expected_outputs));
-	% expected_outputs /= max_output;
+	max_output = max(abs(expected_outputs));
+	expected_outputs /= max_output;
 	% expected_outputs = (expected_outputs + 1)/2;
 end
 
