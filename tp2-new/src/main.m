@@ -1,4 +1,4 @@
 source('network.m');
 
-network = init();
-network = train(network);
+network = init_network();
+network = train(network, true);
