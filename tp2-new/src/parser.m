@@ -1,6 +1,6 @@
 source('activation_fn.m');
 
-function config = parse()
+function config = parse_backpropagation()
 	fid = fopen ('config.txt', 'r');
 	while (!feof (fid))
   	line = fgetl (fid);

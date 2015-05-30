@@ -36,8 +36,8 @@ function cuadratic_error = calculate_cuadratic_error(network)
 	cuadratic_error = (1/(2*length(network.range)))*sum((network.expected_outputs - network.outputs{end}).^2);
 end
 
-function network  = init()
-	config = parse();
+function network  = init_network()
+	config = parse_backpropagation();
 	network.eta = config.eta;
 	network.beta_fn = config.beta_fn;
 	network.act_fn = config.act_fn;
