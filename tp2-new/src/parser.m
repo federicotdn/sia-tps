@@ -25,6 +25,9 @@ function [eta, beta_fn, act_fn, act_fn_der, max_epochs, range, min_cuadratic_err
   			if (strcmp(value, 'tanh'))
           act_fn = @act_tanh;
           act_fn_der = @act_tanh_der;
+        elseif (strcmp(value, 'exp'))
+          act_fn = @exp_fn;
+          act_fn_der = @exp_fn_der;
         endif
       case "rand_limit"
         rand_limit = str2double(value);
