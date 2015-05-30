@@ -44,13 +44,18 @@ end
 
 function weights = init_weights(population_size, rand_limit, arch)
 	weights = {};
+	individual_size = calc_individual_size(arch);
 	for i = 1:population_size
-		weight = [];
-		for j = 1:length(arch) -1
-			weight = [weight, (rand(1, (arch(j) + 1)* arch(j+1))* (2*rand_limit)) - rand_limit];
-		end
-
+		rand('seed', i);
+		weight = (rand(1, individual_size)* (2*rand_limit)) - rand_limit;
 		weights{end + 1} = weight;
+	end
+end
+
+function individual_size = calc_individual_size(arch)
+	individual_size = 0;
+	for i = 1:length(arch) -1
+		individual_size += (arch(i) + 1) * arch(i+1);
 	end
 end
 
