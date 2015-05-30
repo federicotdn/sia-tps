@@ -22,6 +22,7 @@ function genetic = init()
 	genetic.tournament_m = config.tournament_m;
 	genetic.mixed_n = config.mixed_n;
 	genetic.mixed_roul = config.mixed_roul;
+	genetic.temperature = 1/genetic.generation;
 
 	% Cross
 	genetic.cross_function = config.cross_function;
@@ -83,6 +84,7 @@ function selected = smart_call_select(genetic, k)
 	selection_params.mixed_n = genetic.mixed_n;
 	selection_params.mixed_roul = genetic.mixed_roul;
 	selection_params.tournament_m = genetic.tournament_m;
+	selection_params.temperature = 1/genetic.generation;
 	selected = smart_call_select_generic(genetic, selection_params);
 end
 
@@ -110,5 +112,7 @@ function selected = smart_call_select_generic(genetic, selection_params)
 			selected = probabilistic_tournament(genetic.individuals.fitnesses, selection_params.k);
 		case 'universal'
 			selected = universal(genetic.individuals.fitness, selection_params.k);
+		case 'boltzman'
+			selected = boltzman(genetic.individuals.fitness, selection_params.k, selection_params.temperature);
 	end
 end
