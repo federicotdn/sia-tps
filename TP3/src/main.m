@@ -6,8 +6,11 @@ source('fitness.m'); % debugging
 genetic = init();
 genetic = calculate_fitnesses(genetic);
 g = genetic; % shorter alias
+last_max_fitnesses = 0;
+max_fitness_count = 0;
+old_weights = {};
 
-while g.generation < g.max_generations % TODO: change condition
+while g.generation < g.max_generations || max(genetic.individuals.fitnesses) > g.max_fitness || max_fitness_count == g.max_fitness_generations || structure_stop(g, old_weights) < g.repeated_weights
 
 	selected = smart_call_select(genetic, g.selection_k);
 
@@ -28,11 +31,21 @@ while g.generation < g.max_generations % TODO: change condition
 	end
 
 	new_weights = genetic.replacement_method(genetic, mut_children);
+	old_weights = genetic.individuals.weights;
 
 	genetic.individuals.weights = new_weights;
 	genetic = calculate_fitnesses(genetic);
 
 	g.generation++;
+
+	max_fitness = max(genetic.individuals.fitnesses)
+
+	if last_max_fitnesses == max_fitness
+		max_fitness_count ++;
+	else
+		max_fitness_count = 0;
+		last_max_fitnesses = max_fitness;
+	end
 
 	% =============================
 	% ======= DEBUG SECTION =======

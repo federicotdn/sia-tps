@@ -63,6 +63,12 @@ function config = parse_config()
         config.replacement_mixed_n = str2double(value);
       case 'replacement_mixed_roul'
         config.replacement_mixed_roul = str2double(value);
+      case 'max_fitness'
+        config.max_fitness = str2double(value);
+      case 'max_fitness_generations'
+        config.max_fitness_generations = str2double(value);
+      case 'repeated_weights'
+        config.repeated_weights = str2double(value);
     end
 	end
 
