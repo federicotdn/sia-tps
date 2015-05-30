@@ -3,7 +3,7 @@ source('feed_forward.m');
 source('deltas.m');
 source('weights.m');
 
-function network = train(network, debug_mode
+function network = train(network, debug_mode)
 	epochs = 1;
 	while epochs <= network.max_epochs
 		aux = randperm(length(network.range));
@@ -26,7 +26,8 @@ function network = train(network, debug_mode
 				plot((1:length(cuadratic_error)), cuadratic_error);
 				hold off;
 				refresh();
-			endif
+			end
+		end
 		epochs++;
 	end
 end

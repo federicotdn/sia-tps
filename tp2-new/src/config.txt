@@ -1,5 +1,5 @@
 arch=1,10,1
-eta=0.1
+eta=0.008
 beta_fn=0.5
 act_fn=tanh
 output_act_fn=tanh
