@@ -1,11 +1,7 @@
 % Genetic Algorithm - Main loop
 
 source('genetic.m');
-source('fitness.m');
-source('replacement.m');
-source('selection.m');
-source('mutation.m');
-source('crossover.m');
+source('fitness.m'); % debugging
 
 genetic = init();
 genetic = calculate_fitnesses(genetic);
@@ -24,11 +20,11 @@ while g.generation < g.max_generations % TODO: change condition
 		children = genetic.cross_function(mother, father);
 
 		mut_children{end + 1} = smart_call_mutate(genetic, children{1});
-		mut_children{end + 1} = smart_call_mutate(genetic, children{2});
-	end
 
-	if mod(g.selected_k, 2) == 1
-
+		% If selection_k is odd, skip adding the second child on the last iteration
+		if i ~= length(iterations) || mod(g.selection_k, 2) == 0
+			mut_children{end + 1} = smart_call_mutate(genetic, children{2});
+		end
 	end
 
 	new_weights = genetic.replacement_method(genetic, mut_children);

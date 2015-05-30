@@ -4,33 +4,35 @@
 % General parameters
 arch=1,10,1
 rand_limit=0.5
-population_size=30
+population_size=35
 max_generations=1000000
 % Range: MIN, STEP, MAX
 range=-4,0.1,4
 
 % Selection related parameters
+% Values: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal
 selection=elite
 % k is also used in the replacement methods (N - k)
-selection_k=14
-tournament_m=0
-mixed_n=4
+selection_k=16
+tournament_m=3
+mixed_n=7
 mixed_roul=1
 
 % Cross function related parameters
-cross_function=one_point
+% Values: one_point, two_point, anular_point, uniform_point
+cross_function=two_point
 cross_prob=1
 
 % Mutation related parameters
 mutation_function=classic
-mutation_prob=0.12
-mutation_range=0.2
+mutation_prob=0.5
+mutation_range=0.99
 mutation_alpha=100
 mutation_beta=0.01
 
 % Replacement function related parameters
 replacement_method=method2
-replacement_selection=elite
+replacement_selection=mixed
 replacement_tournament_m=0
-replacement_mixed_n=4
+replacement_mixed_n=15
 replacement_mixed_roul=1

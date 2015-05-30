@@ -56,7 +56,7 @@ function selected = deterministic_tournament(fitnesses, k, m)
 		for i = 1:m
 			contenders(i) = fitnesses(contender_index(i));
 		endfor
-		selected(end+1) = find(max(contenders) == fitnesses)(1)
+		selected(end+1) = find(max(contenders) == fitnesses)(1);
 	endfor
 endfunction
 
