@@ -3,7 +3,7 @@ source('feed_forward.m');
 source('deltas.m');
 source('weights.m');
 
-function network = train(network)
+function network = train(network, debug_mode
 	epochs = 1;
 	while epochs <= network.max_epochs
 		aux = randperm(length(network.range));
@@ -16,16 +16,17 @@ function network = train(network)
 		network = feed_forward_batch(network);
 		cuadratic_error(epochs) = calculate_cuadratic_error(network);
 		
-		printf('E = %f epoca = %d\n ', cuadratic_error(epochs), epochs);
-		if ( mod(epochs, 20) == 0)
-			hold on;
-			subplot(2,1,1);
-			plot(network.range, network.expected_outputs, network.range, network.outputs{end});
-			subplot(2,1,2);
-			plot((1:length(cuadratic_error)), cuadratic_error);
-			hold off;
-			refresh();
-		endif
+		if debug_mode
+			printf('E = %f epoca = %d\n ', cuadratic_error(epochs), epochs);
+			if ( mod(epochs, 20) == 0)
+				hold on;
+				subplot(2,1,1);
+				plot(network.range, network.expected_outputs, network.range, network.outputs{end});
+				subplot(2,1,2);
+				plot((1:length(cuadratic_error)), cuadratic_error);
+				hold off;
+				refresh();
+			endif
 		epochs++;
 	end
 end
