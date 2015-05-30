@@ -17,7 +17,7 @@ while g.generation < g.max_generations % TODO: change condition
 		selected_pair = randperm(length(selected), 2);
 		father = genetic.individuals.weights{selected_pair(1)};
 		mother = genetic.individuals.weights{selected_pair(2)};
-		children = genetic.cross_function(mother, father);
+		children = genetic.cross_function(mother, father, g.cross_prob);
 
 		mut_children{end + 1} = smart_call_mutate(genetic, children{1});
 

@@ -94,6 +94,7 @@ function selected = smart_call_replacement_select(genetic, k)
 	selection_params.mixed_n = genetic.replacement_mixed_n;
 	selection_params.mixed_roul = genetic.replacement_mixed_roul;
 	selection_params.tournament_m = genetic.replacement_tournament_m;
+	selection_params.temperature = 1/genetic.generation;
 	selected = smart_call_select_generic(genetic, selection_params);
 end
 
