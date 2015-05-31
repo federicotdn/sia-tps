@@ -16,11 +16,11 @@ while running
 	selected = smart_call_select(genetic, g.selection_k);
 
 	mut_children = {};
-	iterations = 1: ceil(g.selection_k / 2);
+	selected_indices = randperm(length(selected));
+	iterations = (1: ceil(g.selection_k / 2)) .* 2;
 	for i = iterations
-		selected_pair = randperm(length(selected), 2);
-		father = genetic.individuals.weights{selected_pair(1)};
-		mother = genetic.individuals.weights{selected_pair(2)};
+		father = genetic.individuals.weights{selected_indices(i)};
+		mother = genetic.individuals.weights{selected_indices(i - 1)};
 		children = genetic.cross_function(mother, father, g.cross_prob);
 
 		mut_children{end + 1} = smart_call_mutate(genetic, children{1});
@@ -51,7 +51,7 @@ while running
 
 	running = (g.generation < g.max_generations) && (max(g.individuals.fitnesses) < g.max_fitness) ...
 	                                             && (max_fitness_count < g.max_fitness_generations) ...
-	                                             && (structure_stop(g, old_weights) < g.repeated_weights)
+	                                             && (structure_stop(g, old_weights) < g.repeated_weights);
 
 	% =============================
 	% ======= DEBUG SECTION =======
