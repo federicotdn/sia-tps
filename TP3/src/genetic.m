@@ -120,8 +120,8 @@ function selected = smart_call_select_generic(genetic, selection_params)
 		case 'probabilistic_tournament'
 			selected = probabilistic_tournament(genetic.individuals.fitnesses, selection_params.k);
 		case 'universal'
-			selected = universal(genetic.individuals.fitness, selection_params.k);
+			selected = universal(genetic.individuals.fitnesses, selection_params.k);
 		case 'boltzman'
-			selected = boltzman(genetic.individuals.fitness, selection_params.k, selection_params.temperature);
+			selected = boltzman(genetic.individuals.fitnesses, selection_params.k, selection_params.temperature);
 	end
 end
