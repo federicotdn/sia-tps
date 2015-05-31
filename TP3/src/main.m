@@ -1,8 +1,8 @@
 % Genetic Algorithm - Main loop
 
 source('genetic.m');
-source('fitness.m'); % debugging
 source('stop_conditions.m');
+source('fitness.m'); % debugging
 
 genetic = init();
 genetic = calculate_fitnesses(genetic);
@@ -10,9 +10,9 @@ g = genetic; % shorter alias
 last_max_fitnesses = 0;
 max_fitness_count = 0;
 old_weights = {};
+running = true;
 
-while g.generation < g.max_generations && max(g.individuals.fitnesses) < g.max_fitness && max_fitness_count < g.max_fitness_generations && structure_stop(g, old_weights) < g.repeated_weights
-
+while running
 	selected = smart_call_select(genetic, g.selection_k);
 
 	mut_children = {};
@@ -48,6 +48,10 @@ while g.generation < g.max_generations && max(g.individuals.fitnesses) < g.max_f
 		max_fitness_count = 0;
 		last_max_fitnesses = max_fitness;
 	end
+
+	running = (g.generation < g.max_generations) && (max(g.individuals.fitnesses) < g.max_fitness) ...
+	                                             && (max_fitness_count < g.max_fitness_generations) ...
+	                                             && (structure_stop(g, old_weights) < g.repeated_weights)
 
 	% =============================
 	% ======= DEBUG SECTION =======
