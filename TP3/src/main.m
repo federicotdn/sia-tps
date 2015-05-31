@@ -78,6 +78,7 @@ while running
 
 		subplot (2, 1, 1)
 		plot(r, results, r, genetic.expected_outputs);
+		legend({'Funcion', 'Aprox'}, 'location', 'eastoutside');
 		title('Funcion 5', 'interpreter', 'latex');
 		xlabel('x', 'interpreter', 'latex');
         ylabel('f(x)', 'interpreter', 'latex');
