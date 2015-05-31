@@ -17,18 +17,22 @@ while running
 
 	mut_children = {};
 	selected_indices = randperm(length(selected));
-	iterations = (1: ceil(g.selection_k / 2)) .* 2;
+	iterations = (1: floor(g.selection_k / 2)) .* 2;
 	for i = iterations
 		father = genetic.individuals.weights{selected_indices(i)};
 		mother = genetic.individuals.weights{selected_indices(i - 1)};
 		children = genetic.cross_function(mother, father, g.cross_prob);
 
 		mut_children{end + 1} = smart_call_mutate(genetic, children{1});
+		mut_children{end + 1} = smart_call_mutate(genetic, children{2});
+	end
 
-		% If selection_k is odd, skip adding the second child on the last iteration
-		if i ~= length(iterations) || mod(g.selection_k, 2) == 0
-			mut_children{end + 1} = smart_call_mutate(genetic, children{2});
-		end
+	if mod(g.selection_k, 2) == 1
+		selected_indices = randperm(length(selected), 2);
+		father = genetic.individuals.weights{selected_indices(1)};
+		mother = genetic.individuals.weights{selected_indices(2)};
+
+		mut_children{end + 1} = smart_call_mutate(genetic, genetic.cross_function(mother, father, g.cross_prob){1});
 	end
 
 	new_weights = genetic.replacement_method(genetic, mut_children);
@@ -43,24 +47,25 @@ while running
 
 	if last_max_fitnesses == max_fitness
 		max_fitness_count++;
-		max_fitness_count
 	else
 		max_fitness_count = 0;
 		last_max_fitnesses = max_fitness;
 	end
 
-	running = (g.generation < g.max_generations) && (max(g.individuals.fitnesses) < g.max_fitness) ...
-	                                             && (max_fitness_count < g.max_fitness_generations) ...
-	                                             && (structure_stop(g, old_weights) < g.repeated_weights);
+    running = (g.generation < g.max_generations) && (max(g.individuals.fitnesses) < g.max_fitness) ...
+												 && (max_fitness_count < g.max_fitness_generations) ...
+												 && (structure_stop(g, old_weights) < g.repeated_weights);
+
 
 	% =============================
 	% ======= DEBUG SECTION =======
 	% =============================
 
+	[m, index] = max(genetic.individuals.fitnesses);
+	all_best(end + 1) = m;
+
 	if mod(g.generation, 50) == 0
-		[m, index] = max(genetic.individuals.fitnesses);
-		disp(m);
-		all_best(end + 1) = m;
+		printf('Best fitness: %f, generation: %d\n', m, g.generation);
 
 		best = genetic.individuals.weights{index};
 		r = genetic.range;
@@ -69,7 +74,7 @@ while running
 		subplot (2, 1, 1)
 		plot(r, results, r, genetic.expected_outputs);
 		subplot (2, 1, 2)
-		plot(1:(g.generation/50), all_best);
+		plot(1:g.generation-1, all_best);
 		refresh();
 	end
 
