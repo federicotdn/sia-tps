@@ -28,30 +28,29 @@ endfunction
 
 function ans = roulette_check(r, cumulative)
 	i = 1;
-	ans = false;
-	while ans == false && i <= length(cumulative)
+	found = false;
+	while found == false && i <= length(cumulative)
 		if i == 1
-			ans = r > 0 && r < cumulative(i);
+			found = r > 0 && r < cumulative(i);
 		else
-			ans = r > cumulative(i-1) && r < cumulative(i);
+			found = r > cumulative(i-1) && r <= cumulative(i);
 		endif
-		i = i +1;
+		i++;
 	endwhile
 	ans = i-1;
 endfunction
 
-function relative_fitness = relative_fitness(fitnesses)
-	relative_fitness = zeros(1,size(fitnesses)(2));
-	for i = 1:size(relative_fitness)(2)
-		relative_fitness(i) = fitnesses(i)/sum(fitnesses);
-	endfor
-endfunction
+function relative_fitnesses = relative_fitness(fitnesses)
+	sum_fitness = sum(fitnesses);
+	relative_fitnesses = fitnesses/sum_fitness;
+end
 
 function selected = boltzman(fitnesses, k, temprature)
 	selected = [];
 	relative_boltzman = relative_boltzman(fitnesses, temprature);
-	cumulative_boltzman = cumsum(relative_boltzman);	
-	rands = rnaad(1,k)*max(relative_boltzman);
+	cumulative_boltzman = cumsum(relative_boltzman);
+	cumulative_boltzman /= max(cumulative_boltzman);
+	rands = rand(1,k);
 	for i = 1:k
 		selected(end+1) = roulette_check(rands(i), cumulative_boltzman);
 	endfor
@@ -63,35 +62,19 @@ function relative_boltzman = relative_boltzman(fitnesses, temprature)
 endfunction
 
 
-function selected = deterministic_tournament(fitnesses, k, m)
+function selected = tournament(fitnesses, k, m, probabilistic)
 	selected = [];
 	contenders = [];
-	contender_index = [];
 	for i = 1:k
-		contender_index = ceil(rand(1,m)*length(fitnesses));
-		for i = 1:m
-			contenders(i) = fitnesses(contender_index(i));
-		endfor
-		selected(end+1) = find(max(contenders) == fitnesses)(1);
-	endfor
-endfunction
-
-function selected = probabilistic_tournament(fitnesses, k)
-	selected = [];
-	contenders = [];
-	contender_index = [];
-	for i = 1:k
-		contender_index = ceil(rand(1,2)*length(fitnesses));
-		for i = 1:m
-			contenders(i) = fitnesses(contender_index(i));
-		endfor
-		if rand < 0.75
-			selected(end+1) = find(max(contenders) == fitnesses)(1);
+		contender_indexes = randi(length(fitnesses), 1, m);
+		contenders = fitnesses(contender_indexes);
+		if (probabilistic && rand < 0.75) || !probabilistic
+			selected(end + 1) = find(max(contenders) == fitnesses)(1);
 		else
 			selected(end+1) = find(min(contenders) == fitnesses)(1);
-		endif
-	endfor
-endfunction
+		end
+	end
+end
 
 function selected = universal(fitnesses, k)
 	selected = [];

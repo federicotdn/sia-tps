@@ -87,9 +87,9 @@ function fn = parse_cross_function(string)
       fn = @one_point_cross;
     case 'two_point'
       fn = @two_point_cross;
-    case 'anular_point'
+    case 'anular'
       fn = @anular_cross;
-    case 'uniform_point'
+    case 'uniform'
       fn = @uniform_cross;
   end
 end

@@ -21,7 +21,12 @@ while running
 	for i = iterations
 		father = genetic.individuals.weights{selected_indices(i)};
 		mother = genetic.individuals.weights{selected_indices(i - 1)};
-		children = genetic.cross_function(mother, father, g.cross_prob);
+
+		if (rand() < g.cross_prob)
+			children = genetic.cross_function(mother, father);
+		else
+			children = {mother, father};
+		end
 
 		mut_children{end + 1} = smart_call_mutate(genetic, children{1});
 		mut_children{end + 1} = smart_call_mutate(genetic, children{2});

@@ -116,9 +116,9 @@ function selected = smart_call_select_generic(genetic, selection_params)
 		case 'roulette'
 			selected = roulette(genetic.individuals.fitnesses, selection_params.k);
 		case 'deterministic_tournament'
-			selected = deterministic_tournament(genetic.individuals.fitnesses, selection_params.k, selection_params.tournament_m);
+			selected = tournament(genetic.individuals.fitnesses, selection_params.k, selection_params.tournament_m, false);
 		case 'probabilistic_tournament'
-			selected = probabilistic_tournament(genetic.individuals.fitnesses, selection_params.k);
+			selected = tournament(genetic.individuals.fitnesses, selection_params.k, selection_params.tournament_m, true);
 		case 'universal'
 			selected = universal(genetic.individuals.fitnesses, selection_params.k);
 		case 'boltzman'

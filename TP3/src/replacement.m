@@ -18,7 +18,7 @@ end
 
 function new_weights = method3(genetic, mut_children)
 	for i = 1: length(mut_children)
-		genetic.individuals.weights{end + 1} = mut_children{i}
+		genetic.individuals.weights{end + 1} = mut_children{i};
 	end
 	genetic = calculate_fitnesses(genetic);
 	retained_indices = smart_call_replacement_select(genetic, genetic.population_size);

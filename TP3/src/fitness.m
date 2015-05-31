@@ -33,7 +33,7 @@ function output = feed_forward(individual, arch, range)
 	endfor
 
 	inputs{end + 1} = outputs{end};
-	outputs{end + 1} = tanh(inputs{end});
+	outputs{end + 1} = inputs{end};
 	output = outputs{end};
 
 end
