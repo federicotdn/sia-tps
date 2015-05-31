@@ -8,7 +8,7 @@ population_size=20
 max_generations=1000000
 max_fitness=100
 max_fitness_generations=1000
-repeated_weights=10
+repeated_weights=100
 % Range: MIN, STEP, MAX
 range=-4,0.1,4
 
