@@ -18,6 +18,7 @@ function genetic = init()
 	genetic.max_fitness = config.max_fitness;
 	genetic.max_fitness_generations = config.max_fitness_generations;
 	genetic.repeated_weights = config.repeated_weights;
+	genetic.beta_fn = config.beta_fn;
 
 	% Selection
 	genetic.selection = config.selection;

@@ -74,7 +74,7 @@ while running
 
 		best = genetic.individuals.weights{index};
 		r = genetic.range;
-		results = feed_forward(best, genetic.arch, r);
+		results = feed_forward(best, genetic.arch, r, genetic.beta_fn);
 
 		subplot (2, 1, 1)
 		plot(r, results, r, genetic.expected_outputs);

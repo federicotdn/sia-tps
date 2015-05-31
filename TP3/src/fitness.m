@@ -6,7 +6,7 @@ function genetic = calculate_fitnesses(genetic)
 end
 
 function fitness = fitness(individual, genetic)
-	output = feed_forward(individual, genetic.arch, genetic.range);
+	output = feed_forward(individual, genetic.arch, genetic.range, genetic.beta_fn);
 	fitness =  1/((1/(length(genetic.range)))*sum((genetic.expected_outputs - output).^2));
 endfunction
 
@@ -21,12 +21,12 @@ function new_individual = individual_array_to_cell_array(individual, arch)
 	endfor
 endfunction
 
-function output = feed_forward(individual, arch, range)
+function output = feed_forward(individual, arch, range, beta_fn)
 	weights = individual_array_to_cell_array(individual, arch);
 	inputs{1} = [(ones(size(range',1),1)*-1) range'];
 	outputs= {};
 	for i = 1:length(weights)
-		outputs{i} = tanh(inputs{i}*weights{i});
+		outputs{i} = act_fn(inputs{i}*weights{i}, beta_fn);
 		if (i < length(weights))
 			inputs{i + 1} = [(ones(size(outputs{i},1),1)*-1) outputs{i}];
 		endif
@@ -36,4 +36,8 @@ function output = feed_forward(individual, arch, range)
 	outputs{end + 1} = inputs{end};
 	output = outputs{end};
 
+end
+
+function ans = act_fn(x, beta_fn)
+	ans = tanh(beta_fn .* x);
 end

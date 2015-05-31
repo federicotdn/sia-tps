@@ -11,6 +11,7 @@ max_fitness_generations=1000
 repeated_weights=100
 % Range: MIN, STEP, MAX
 range=-4,0.1,4
+beta_fn=1
 
 % Selection related parameters
 % Values: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal

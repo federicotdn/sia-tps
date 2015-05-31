@@ -41,6 +41,8 @@ function config = parse_config()
       case 'range'
         aux = parse_to_array(strsplit(value, ','));
         config.range = (aux(1):aux(2):aux(3));
+      case 'beta_fn'
+        config.beta_fn = str2double(value);
       case 'cross_prob'
         config.cross_prob = str2double(value);
       case 'cross_function'
