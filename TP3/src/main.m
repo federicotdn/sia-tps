@@ -78,8 +78,14 @@ while running
 
 		subplot (2, 1, 1)
 		plot(r, results, r, genetic.expected_outputs);
+		title('Funcion 5', 'interpreter', 'latex');
+		xlabel('x', 'interpreter', 'latex');
+        ylabel('f(x)', 'interpreter', 'latex');
 		subplot (2, 1, 2)
-		plot(1: genetic.generation-1, all_best);
+		plot(1:genetic.generation-1, all_best);
+		title('Evolucion del fitness maximo', 'interpreter', 'latex');
+		xlabel('Generaciones', 'interpreter', 'latex');
+        ylabel('Fitness', 'interpreter', 'latex');
 		refresh();
 	end
 
