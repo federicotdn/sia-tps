@@ -129,4 +129,21 @@ else
 end
 
 printf('Criterio de corte: %s\n', cut);
+
+best = genetic.individuals.weights{index};
+r = genetic.range;
+results = feed_forward(best, genetic.arch, r, genetic.beta_fn);
+
+subplot (2, 1, 1)
+plot(r, results, r, genetic.expected_outputs);
+legend('Funcion', 'Aprox', 'location', 'eastoutside');
+title('Funcion 5');
+xlabel('x');
+ylabel('f(x)');
+subplot (2, 1, 2)
+plot(length(all_best), all_best);
+title('Evolucion del fitness maximo');
+xlabel('Generaciones');
+ylabel('Fitness');
+refresh();
 pause();

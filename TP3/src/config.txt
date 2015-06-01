@@ -5,7 +5,7 @@
 arch=1,10,1
 rand_limit=0.5
 population_size=20
-max_generations=30000
+max_generations=60
 max_fitness=100
 max_fitness_generations=1000
 delta_structure=0.00000001
