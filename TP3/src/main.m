@@ -59,16 +59,17 @@ while running
 	end
 
 	new_weights = genetic.replacement_method(genetic, mut_children);
-	old_weights = genetic.individuals.weights;
 
 	genetic.individuals.weights = new_weights;
 	genetic = calculate_fitnesses(genetic);
+
+	mean_fitness = mean(genetic.individuals.fitnesses);
 
 	genetic.generation++;
 
 	max_fitness = max(genetic.individuals.fitnesses);
 
-	if last_max_fitnesses == max_fitness
+	if abs(last_max_fitnesses - max_fitness) < 0.000001
 		max_fitness_count++;
 	else
 		max_fitness_count = 0;
@@ -78,8 +79,9 @@ while running
   running = (genetic.generation < genetic.max_generations) ...
     		  && (max(genetic.individuals.fitnesses) < genetic.max_fitness) ...
 			  && (max_fitness_count < genetic.max_fitness_generations) ...
-			  && (structure_stop(genetic, old_weights) < genetic.repeated_weights);
+			  && (!exist('prev_mean_fitness', 'var') || abs(mean_fitness - prev_mean_fitness) > genetic.delta_structure);
 
+	prev_mean_fitness = mean_fitness;
 
 	% =============================
 	% ======= DEBUG SECTION =======
@@ -88,8 +90,8 @@ while running
 	[m, index] = max(genetic.individuals.fitnesses);
 	all_best(end + 1) = m;
 
-	if mod(genetic.generation - 1, 50) == 0
-		printf('Best fitness: %f, generation: %d\n', m, genetic.generation -);
+	if mod(genetic.generation - 1, 100) == 0
+		printf('Best fitness: %f, generation: %d\n', m, genetic.generation - 1);
 
 		best = genetic.individuals.weights{index};
 		r = genetic.range;
@@ -113,5 +115,18 @@ while running
 	% ===== END DEBUG SECTION =====
 	% =============================
 
-	pause();
 end
+
+cut = '';
+if genetic.generation >= genetic.max_generations
+	cut = 'Maxima cantidad de generaciones';
+elseif max(genetic.individuals.fitnesses) >= genetic.max_fitness
+	cut = 'Maximo fitness superado';
+elseif max_fitness_count >= genetic.max_fitness_generations
+	cut = 'Maximo fitness no progreso';
+else
+	cut = 'Estructura';
+end
+
+printf('Criterio de corte: %s\n', cut);
+pause();

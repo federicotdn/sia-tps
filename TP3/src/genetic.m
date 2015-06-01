@@ -17,7 +17,7 @@ function genetic = init()
 	genetic.expected_outputs = calc_expected_outputs(config.range);
 	genetic.max_fitness = config.max_fitness;
 	genetic.max_fitness_generations = config.max_fitness_generations;
-	genetic.repeated_weights = config.repeated_weights;
+	genetic.delta_structure = config.delta_structure;
 	genetic.beta_fn = config.beta_fn;
 
 	% Selection

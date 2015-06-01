@@ -8,6 +8,7 @@ function config = parse_config()
 	fid = fopen('config.txt', 'r');
 	while !feof(fid)
   	text_line = fgetl(fid);
+    disp(text_line);
 
     if length(text_line) == 0 || text_line(1) == '%'
       continue;
@@ -69,8 +70,8 @@ function config = parse_config()
         config.max_fitness = str2double(value);
       case 'max_fitness_generations'
         config.max_fitness_generations = str2double(value);
-      case 'repeated_weights'
-        config.repeated_weights = str2double(value);
+      case 'delta_structure'
+        config.delta_structure = str2double(value);
     end
 	end
 
