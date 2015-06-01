@@ -91,7 +91,7 @@ while running
 	all_best(end + 1) = m;
 
 	if mod(genetic.generation - 1, 100) == 0
-		printf('Best fitness: %f, generation: %d\n', m, genetic.generation - 1);
+		printf('Mejor fitness: %f, generacion: %d\n', m, genetic.generation - 1);
 
 		best = genetic.individuals.weights{index};
 		r = genetic.range;
@@ -128,7 +128,11 @@ else
 	cut = 'Estructura';
 end
 
-printf('Criterio de corte: %s\n', cut);
+printf('\n Criterio de corte: %s\n', cut);
+
+printf('Mejor fitness: %f, generacion: %d\n', m, genetic.generation);
+printf('Mejores pesos: \n');
+disp(genetic.individuals.weights{index});
 
 best = genetic.individuals.weights{index};
 r = genetic.range;
@@ -141,7 +145,7 @@ title('Funcion 5');
 xlabel('x');
 ylabel('f(x)');
 subplot (2, 1, 2)
-plot(length(all_best), all_best);
+plot(1:length(all_best), all_best);
 title('Evolucion del fitness maximo');
 xlabel('Generaciones');
 ylabel('Fitness');
