@@ -56,7 +56,7 @@ while running
 		last_max_fitnesses = max_fitness;
 	end
 
-    running = (genetic.generation < genetic.max_generations) ...
+  running = (genetic.generation < genetic.max_generations) ...
     		  && (max(genetic.individuals.fitnesses) < genetic.max_fitness) ...
 			  && (max_fitness_count < genetic.max_fitness_generations) ...
 			  && (structure_stop(genetic, old_weights) < genetic.repeated_weights);
@@ -78,15 +78,15 @@ while running
 
 		subplot (2, 1, 1)
 		plot(r, results, r, genetic.expected_outputs);
-		legend({'Funcion', 'Aprox'}, 'location', 'eastoutside');
-		title('Funcion 5', 'interpreter', 'latex');
-		xlabel('x', 'interpreter', 'latex');
-        ylabel('f(x)', 'interpreter', 'latex');
+		legend('Funcion', 'Aprox', 'location', 'eastoutside');
+		title('Funcion 5');
+		xlabel('x');
+    ylabel('f(x)');
 		subplot (2, 1, 2)
 		plot(1:genetic.generation-1, all_best);
-		title('Evolucion del fitness maximo', 'interpreter', 'latex');
-		xlabel('Generaciones', 'interpreter', 'latex');
-        ylabel('Fitness', 'interpreter', 'latex');
+		title('Evolucion del fitness maximo');
+		xlabel('Generaciones');
+    ylabel('Fitness');
 		refresh();
 	end
 
