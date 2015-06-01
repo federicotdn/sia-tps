@@ -5,6 +5,7 @@ source('stop_conditions.m');
 source('fitness.m'); % debugging
 
 genetic = init();
+genetic.backpropagated = 0;
 genetic = calculate_fitnesses(genetic);
 last_max_fitnesses = 0;
 max_fitness_count = 0;
@@ -13,6 +14,8 @@ running = true;
 
 while running
 	selected = smart_call_select(genetic, genetic.selection_k);
+
+	genetic.backpropagated = 0;
 
 	mut_children = {};
 	selected_indices = randperm(length(selected));
@@ -68,13 +71,16 @@ while running
 
 	[m, index] = max(genetic.individuals.fitnesses);
 	all_best(end + 1) = m;
+	printf('Best fitness: %f, generation: %d backpropagated: %d\n', m, genetic.generation, genetic.backpropagated);	
 
 	if mod(genetic.generation, 50) == 0
 		printf('Best fitness: %f, generation: %d\n', m, genetic.generation);
 
 		best = genetic.individuals.weights{index};
 		r = genetic.range;
-		results = feed_forward(best, genetic.arch, r, genetic.beta_fn);
+		genetic.network.weights = individual_array_to_cell_array(best, genetic.arch);
+		genetic.network = feed_forward_batch(genetic.network);
+		results = genetic.network.outputs{end};
 
 		subplot (2, 1, 1)
 		plot(r, results, r, genetic.expected_outputs);

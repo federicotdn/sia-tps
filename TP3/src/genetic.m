@@ -1,9 +1,14 @@
 source('parser.m');
 source('selection.m')
 source('mutation.m')
+source('network.m')
+source('parser_network.m')
+
 
 function genetic = init()
-	config = parse_config();
+
+	config = parse_network();
+	config = parse_config(config);
 
 	% General parameters
 	genetic.arch = config.arch;
@@ -18,7 +23,6 @@ function genetic = init()
 	genetic.max_fitness = config.max_fitness;
 	genetic.max_fitness_generations = config.max_fitness_generations;
 	genetic.repeated_weights = config.repeated_weights;
-	genetic.beta_fn = config.beta_fn;
 
 	% Selection
 	genetic.selection = config.selection;
@@ -45,6 +49,12 @@ function genetic = init()
 	genetic.replacement_tournament_m = config.replacement_tournament_m;
 	genetic.replacement_mixed_n = config.replacement_mixed_n;
 	genetic.replacement_mixed_roul = config.replacement_mixed_roul;
+
+	% Backpropagation
+
+	genetic.network = init_network(config);
+	genetic.network.expected_outputs = genetic.expected_outputs;
+	genetic.backpropagation_prob = config.backpropagation_prob;
 end
 
 function weights = init_weights(population_size, rand_limit, arch)

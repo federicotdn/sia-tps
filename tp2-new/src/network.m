@@ -15,10 +15,28 @@ function network = train(network, debug_mode)
 
 		network = feed_forward_batch(network);
 		cuadratic_error(epochs) = calculate_cuadratic_error(network);
+
+		if epochs > 1 && mod(epochs - 1, 30) == 0
+			delta_eta = 0;
+			if cuadratic_error(epochs) > cuadratic_error(epochs - 30)
+				network.weights = network.prev_weights;
+				network.outputs = network.prev_outputs;
+				cuadratic_error(epochs) = cuadratic_error(epochs - 30);
+				delta_eta = -network.b * network.eta;
+			elseif(cuadratic_error(epochs) < cuadratic_error(epochs - 30))
+				delta_eta = network.a;
+			end
+			network.eta += delta_eta;
+		end
+
+		if epochs == 1 || mod(epochs - 1, 30) == 0
+			network.prev_weights = network.weights;
+			network.prev_outputs = network.outputs;
+		end
 		
 		if debug_mode
-			printf('E = %f epoca = %d\n ', cuadratic_error(epochs), epochs);
-			if ( mod(epochs, 20) == 0)
+			printf('E = %f epoca = %d eta: %f\n', cuadratic_error(epochs), epochs, network.eta);
+			if ( mod(epochs - 1, 30) == 0)
 				hold on;
 				subplot(2,1,1);
 				plot(network.range, network.expected_outputs, network.range, network.outputs{end});
@@ -39,6 +57,8 @@ end
 function network  = init_network()
 	config = parse_backpropagation();
 	network.eta = config.eta;
+	network.a = config.a;
+	network.b = config.b;
 	network.beta_fn = config.beta_fn;
 	network.act_fn = config.act_fn;
 	network.act_fn_der = config.act_fn_der;

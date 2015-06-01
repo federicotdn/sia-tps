@@ -1,14 +1,26 @@
+source('network.m');
+
 function genetic = calculate_fitnesses(genetic)
 	genetic.individuals.fitnesses = [];
-	for weight = genetic.individuals.weights
-		genetic.individuals.fitnesses(end + 1) = fitness(weight{1}, genetic);
+	for i = 1:length(genetic.individuals.weights)
+		[genetic.individuals.fitnesses(end + 1), genetic.individuals.weights{i}, genetic.backpropagated] = fitness(genetic.individuals.weights{i}, genetic, genetic.backpropagated);
 	end
 end
 
-function fitness = fitness(individual, genetic)
-	output = feed_forward(individual, genetic.arch, genetic.range, genetic.beta_fn);
-	fitness =  1/((1/(length(genetic.range)))*sum((genetic.expected_outputs - output).^2));
-endfunction
+function [fitness, new_weights, backpropagated] = fitness(individual, genetic, backpropagated)
+	% output = feed_forward(individual, genetic.arch, genetic.range);
+	genetic.network.weights = individual_array_to_cell_array(individual, genetic.arch);
+	backpropagate = rand() < genetic.backpropagation_prob;
+	genetic.network = train(genetic.network, false, backpropagate);
+	
+	fitness =  1/genetic.network.cuadratic_error;
+	if backpropagate
+		backpropagated++;
+		new_weights = weights_cell_array_to_array(genetic.network.weights);
+	else
+		new_weights = individual;
+	end
+end
 
 function new_individual = individual_array_to_cell_array(individual, arch)
 	new_individual = {};
@@ -18,26 +30,14 @@ function new_individual = individual_array_to_cell_array(individual, arch)
 		slice = individual(pos: pos + individual_size -1);
 		new_individual{i} =  reshape(slice, arch(i) + 1, arch(i + 1));
 		pos += individual_size;
-	endfor
-endfunction
-
-function output = feed_forward(individual, arch, range, beta_fn)
-	weights = individual_array_to_cell_array(individual, arch);
-	inputs{1} = [(ones(size(range',1),1)*-1) range'];
-	outputs= {};
-	for i = 1:length(weights)
-		outputs{i} = act_fn(inputs{i}*weights{i}, beta_fn);
-		if (i < length(weights))
-			inputs{i + 1} = [(ones(size(outputs{i},1),1)*-1) outputs{i}];
-		endif
-	endfor
-
-	inputs{end + 1} = outputs{end};
-	outputs{end + 1} = inputs{end};
-	output = outputs{end};
-
+	end
 end
 
-function ans = act_fn(x, beta_fn)
-	ans = tanh(beta_fn .* x);
+function new_weights = weights_cell_array_to_array(weights)
+	new_weights = [];
+	for i = 1:length(weights)
+		weight = weights{i};
+		flat_size = size(weight)(1) * size(weight)(2);
+		new_weights = [new_weights, reshape(weight, 1, flat_size)];
+	end
 end

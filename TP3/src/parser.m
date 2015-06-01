@@ -4,7 +4,7 @@ source('crossover.m');
 source('selection.m');
 source('replacement.m')
 
-function config = parse_config()
+function config = parse_config(config)
 	fid = fopen('config.txt', 'r');
 	while !feof(fid)
   	text_line = fgetl(fid);
@@ -41,8 +41,8 @@ function config = parse_config()
       case 'range'
         aux = parse_to_array(strsplit(value, ','));
         config.range = (aux(1):aux(2):aux(3));
-      case 'beta_fn'
-        config.beta_fn = str2double(value);
+      case 'backpropagation_prob'
+        config.backpropagation_prob = str2double(value);
       case 'cross_prob'
         config.cross_prob = str2double(value);
       case 'cross_function'

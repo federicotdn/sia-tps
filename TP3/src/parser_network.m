@@ -1,7 +1,7 @@
 source('activation_fn.m');
 
-function config = parse_backpropagation()
-	fid = fopen ('config.txt', 'r');
+function config = parse_network()
+	fid = fopen ('config_network.txt', 'r');
 	while (!feof (fid))
   	line = fgetl (fid);
   	split = strsplit(line, '=');
@@ -16,10 +16,6 @@ function config = parse_backpropagation()
   			config.max_epochs = str2double(value);
   		case 'min_cuadratic_error'
   			config.min_cuadratic_error = str2double(value);
-      case 'a'
-        config.a = str2double(value);
-      case 'b'
-        config.b = str2double(value);
   		case 'arch'
   			config.arch = parse2array(strsplit(value, ','));
   		case 'range'
