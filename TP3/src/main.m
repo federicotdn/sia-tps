@@ -12,31 +12,50 @@ old_weights = {};
 running = true;
 
 while running
-	selected = smart_call_select(genetic, genetic.selection_k);
-
 	mut_children = {};
-	selected_indices = randperm(length(selected));
-	iterations = (1: floor(genetic.selection_k / 2)) .* 2;
-	for i = iterations
-		father = genetic.individuals.weights{selected_indices(i)};
-		mother = genetic.individuals.weights{selected_indices(i - 1)};
+	if genetic.replacement_method == @method1
+		while length(mut_children) < genetic.population_size
+			selected = smart_call_select(genetic, 2);
+			father = genetic.individuals.weights{selected(1)};
+			mother = genetic.individuals.weights{selected(2)};
 
-		if (rand() < genetic.cross_prob)
-			children = genetic.cross_function(mother, father);
-		else
-			children = {mother, father};
+			if (rand() < genetic.cross_prob)
+				children = genetic.cross_function(mother, father);
+			else
+				children = {mother, father};
+			end
+
+			mut_children{end + 1} = smart_call_mutate(genetic, children{1});
+			if length(mut_children) < genetic.population_size
+				mut_children{end + 1} = smart_call_mutate(genetic, children{2});
+			end
+		end
+	else
+		selected = smart_call_select(genetic, genetic.selection_k);
+
+		selected_indices = randperm(length(selected));
+		iterations = (1: floor(genetic.selection_k / 2)) .* 2;
+		for i = iterations
+			father = genetic.individuals.weights{selected_indices(i)};
+			mother = genetic.individuals.weights{selected_indices(i - 1)};
+
+			if (rand() < genetic.cross_prob)
+				children = genetic.cross_function(mother, father);
+			else
+				children = {mother, father};
+			end
+
+			mut_children{end + 1} = smart_call_mutate(genetic, children{1});
+			mut_children{end + 1} = smart_call_mutate(genetic, children{2});
 		end
 
-		mut_children{end + 1} = smart_call_mutate(genetic, children{1});
-		mut_children{end + 1} = smart_call_mutate(genetic, children{2});
-	end
+		if mod(genetic.selection_k, 2) == 1
+			selected_indices = randperm(length(selected), 2);
+			father = genetic.individuals.weights{selected_indices(1)};
+			mother = genetic.individuals.weights{selected_indices(2)};
 
-	if mod(genetic.selection_k, 2) == 1
-		selected_indices = randperm(length(selected), 2);
-		father = genetic.individuals.weights{selected_indices(1)};
-		mother = genetic.individuals.weights{selected_indices(2)};
-
-		mut_children{end + 1} = smart_call_mutate(genetic, genetic.cross_function(mother, father, genetic.cross_prob){1});
+			mut_children{end + 1} = smart_call_mutate(genetic, genetic.cross_function(mother, father, genetic.cross_prob){1});
+		end
 	end
 
 	new_weights = genetic.replacement_method(genetic, mut_children);
@@ -69,8 +88,8 @@ while running
 	[m, index] = max(genetic.individuals.fitnesses);
 	all_best(end + 1) = m;
 
-	if mod(genetic.generation, 50) == 0
-		printf('Best fitness: %f, generation: %d\n', m, genetic.generation);
+	if mod(genetic.generation - 1, 50) == 0
+		printf('Best fitness: %f, generation: %d\n', m, genetic.generation -);
 
 		best = genetic.individuals.weights{index};
 		r = genetic.range;
@@ -93,4 +112,6 @@ while running
 	% =============================
 	% ===== END DEBUG SECTION =====
 	% =============================
+
+	pause();
 end

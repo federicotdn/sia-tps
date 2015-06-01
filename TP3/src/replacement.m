@@ -2,9 +2,6 @@
 source('fitness.m');
 
 function new_weights = method1(genetic, mut_children)
-	if genetic.selection_k ~= genetic.population_size
-		error('K must equal N (population size)');
-	end
 	new_weights = mut_children;
 end
 

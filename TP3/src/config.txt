@@ -15,7 +15,7 @@ beta_fn=1
 
 % Selection related parameters
 % Values: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal
-selection=elite
+selection=deterministic_tournament
 % k is also used in the replacement methods (N - k)
 selection_k=16
 tournament_m=3
@@ -35,8 +35,8 @@ mutation_alpha=100
 mutation_beta=0.01
 
 % Replacement function related parameters
-replacement_method=method3
-replacement_selection=mixed
+replacement_method=method1
+replacement_selection=roulette
 replacement_tournament_m=0
 replacement_mixed_n=10
 replacement_mixed_roul=1
