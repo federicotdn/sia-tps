@@ -8,7 +8,8 @@ population_size=20
 max_generations=1000000
 max_fitness=100
 max_fitness_generations=1000
-repeated_weights=100
+repeated_weights=20
+delta_for_repeated=0.001
 % Range: MIN, STEP, MAX
 range=-4,0.1,4
 
@@ -16,7 +17,7 @@ range=-4,0.1,4
 % Values: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal
 selection=elite
 % k is also used in the replacement methods (N - k)
-selection_k=16
+selection_k=19
 tournament_m=3
 mixed_n=7
 mixed_roul=1
@@ -28,8 +29,8 @@ cross_prob=1
 
 % Mutation related parameters
 mutation_function=classic
-mutation_prob=0.1
-mutation_range=0.1
+mutation_prob=1
+mutation_range=0.9
 mutation_alpha=100
 mutation_beta=0.01
 
@@ -37,5 +38,5 @@ mutation_beta=0.01
 replacement_method=method3
 replacement_selection=mixed
 replacement_tournament_m=0
-replacement_mixed_n=10
+replacement_mixed_n=8
 replacement_mixed_roul=1

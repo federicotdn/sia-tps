@@ -69,6 +69,8 @@ function config = parse_config()
         config.max_fitness_generations = str2double(value);
       case 'repeated_weights'
         config.repeated_weights = str2double(value);
+      case 'delta_for_repeated'
+        config.delta_for_repeated = str2double(value);
     end
 	end
 

@@ -21,7 +21,7 @@ while running
 		father = genetic.individuals.weights{selected_indices(i)};
 		mother = genetic.individuals.weights{selected_indices(i - 1)};
 
-		if (rand() < genetic.cross_prob)
+		if rand() < genetic.cross_prob
 			children = genetic.cross_function(mother, father);
 		else
 			children = {mother, father};
@@ -36,7 +36,11 @@ while running
 		father = genetic.individuals.weights{selected_indices(1)};
 		mother = genetic.individuals.weights{selected_indices(2)};
 
-		mut_children{end + 1} = smart_call_mutate(genetic, genetic.cross_function(mother, father, genetic.cross_prob){1});
+		if rand() < genetic.cross_prob
+			mut_children{end + 1} = genetic.cross_function(mother, father){1};
+		else
+			mut_children{end + 1} = father;
+		end
 	end
 
 	new_weights = genetic.replacement_method(genetic, mut_children);
@@ -44,6 +48,10 @@ while running
 
 	genetic.individuals.weights = new_weights;
 	genetic = calculate_fitnesses(genetic);
+
+	if structure_stop(genetic, old_weights) == genetic.population_size
+		keyboard()
+	end
 
 	genetic.generation++;
 
