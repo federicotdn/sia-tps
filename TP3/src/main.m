@@ -144,7 +144,7 @@ title('Funcion 5');
 xlabel('x');
 ylabel('f(x)');
 subplot (2, 1, 2)
-plot(1:length(all_best), all_best, 1:length(mean_fitnesses(genetic.generations - 1)));
+plot(1:genetic.generation-1, all_best, 1:genetic.generation-1, mean_fitnesses);
 legend('Max', 'Promedio', 'location', 'eastoutside');
 title('Evolucion del fitness maximo');
 xlabel('Generaciones');
