@@ -5,17 +5,17 @@
 arch=1,10,1
 rand_limit=0.5
 population_size=20
-max_generations=60
+max_generations=1000000
 max_fitness=100
 max_fitness_generations=1000
-delta_structure=0.00000001
+delta_structure=0.0000001
 % Range: MIN, STEP, MAX
 range=-4,0.1,4
-beta_fn=1
+beta_fn=1.0
 
 % Selection related parameters
 % Values: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal
-selection=elite
+selection=universal
 % k is also used in the replacement methods (N - k)
 selection_k=11
 tournament_m=3
@@ -23,8 +23,8 @@ mixed_n=7
 mixed_roul=1
 
 % Cross function related parameters
-% Values: one_point, two_point, anular_point, uniform_point
-cross_function=two_point
+% Values: one_point, two_point, anular, uniform
+cross_function=anular
 cross_prob=1
 
 % Mutation related parameters
@@ -35,8 +35,9 @@ mutation_alpha=100
 mutation_beta=0.01
 
 % Replacement function related parameters
-replacement_method=method3
+replacement_method=method2
 replacement_selection=mixed
 replacement_tournament_m=0
-replacement_mixed_n=8
+replacement_mixed_n=4
 replacement_mixed_roul=1
+

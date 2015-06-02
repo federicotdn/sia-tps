@@ -63,7 +63,7 @@ while running
 	genetic.individuals.weights = new_weights;
 	genetic = calculate_fitnesses(genetic);
 
-	mean_fitness = mean(genetic.individuals.fitnesses);
+	mean_fitnesses(genetic.generation) = mean(genetic.individuals.fitnesses);
 
 	genetic.generation++;
 
@@ -79,9 +79,7 @@ while running
   running = (genetic.generation < genetic.max_generations) ...
     		  && (max(genetic.individuals.fitnesses) < genetic.max_fitness) ...
 			  && (max_fitness_count < genetic.max_fitness_generations) ...
-			  && (!exist('prev_mean_fitness', 'var') || abs(mean_fitness - prev_mean_fitness) > genetic.delta_structure);
-
-	prev_mean_fitness = mean_fitness;
+			  && (length(mean_fitnesses) == 1 || abs(mean_fitnesses(genetic.generation -1) - mean_fitnesses(genetic.generation -2)) > genetic.delta_structure);
 
 	% =============================
 	% ======= DEBUG SECTION =======
@@ -104,8 +102,9 @@ while running
 		xlabel('x');
     ylabel('f(x)');
 		subplot (2, 1, 2)
-		plot(1:genetic.generation-1, all_best);
-		title('Evolucion del fitness maximo');
+		plot(1:genetic.generation-1, all_best, 1:genetic.generation-1, mean_fitnesses);
+		legend('Max', 'Promedio', 'location', 'eastoutside');
+		title('Evolucion del fitness');
 		xlabel('Generaciones');
     ylabel('Fitness');
 		refresh();
@@ -128,7 +127,7 @@ else
 	cut = 'Estructura';
 end
 
-printf('\n Criterio de corte: %s\n', cut);
+printf('\nCriterio de corte: %s\n', cut);
 
 printf('Mejor fitness: %f, generacion: %d\n', m, genetic.generation);
 printf('Mejores pesos: \n');
@@ -145,7 +144,8 @@ title('Funcion 5');
 xlabel('x');
 ylabel('f(x)');
 subplot (2, 1, 2)
-plot(1:length(all_best), all_best);
+plot(1:length(all_best), all_best, 1:length(mean_fitnesses(genetic.generations - 1)));
+legend('Max', 'Promedio', 'location', 'eastoutside');
 title('Evolucion del fitness maximo');
 xlabel('Generaciones');
 ylabel('Fitness');
