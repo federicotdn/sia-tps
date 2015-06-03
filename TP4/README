@@ -1,0 +1,55 @@
+==    Sistemas de Inteligencia Artificial    ==
+==              Trabajo Práctico 4           ==
+==             Algoritmos Geneticos          ==
+==                Manual de uso              ==
+
+El proyecto fue implementado utilizando GNU Octave (probado en la version 3.8.2).  Para utilizar el proyecto, se requiere
+un interprete de Octave, y la libreria gnuplot, para poder crear los graficos de datos.
+
+Para instalar octave en Ubuntu (junto a las otras librerias requeridas), utilizar el siguiente comando:
+
+$ sudo apt-get install octave
+
+Una vez instalado el interprete de Octave, se debera configurar el proyecto, antes de poder ejecutarlo.  Para esto, navegar
+a la carpeta 'src' del proyecto, y abrir el archivo de texto 'config.txt'.  Este archivo de configuracion permite
+especificar que parametros utilizara el motor de algoritmos geneticos, cuando se comienzen las pruebas.  A continuacion se
+detallan los parametros que se pueden modificar:
+
+Formato: NOMBRE, =, EJEMPLO, TIPO DE VALOR/DESCRIPCION
+
+arch=1,10,1                    Arquitectura a utilizar para las redes neuronales.  Separar capas con ','.
+rand_limit=0.5                 Rango de valores aleatorios para pesos iniciales de las redes.
+population_size=20             Cantidad de individuos.
+max_generations=1000000        Condicion de corte: maxima cantidad de generaciones.
+max_fitness=100                Condicion de corte: maximo fitness.
+max_fitness_generations=1000   Condicion de corte: maxima cantidad de generaciones sin cambios significantes en fitness maximo.
+delta_structure=0.0000001      Condicion de corte: Diferencia requerida entre promedio de pesos de individuos para considerarlos no repetidos.
+range=-4,0.1,4                 Rango de la funcion F a estimar.  Formato: MIN,STEP,MAX
+beta_fn=1.0                    Beta para la funcion de activacion de las redes neuronales.
+selection=universal            Metodo de seleccion de individuos.  Valores posibles: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal, boltzman
+selection_k=11                 Cantidad de individuos a seleccionar en cada generacion.
+tournament_m=3                 Parametro 'm' para seleccion por torneos.
+mixed_n=7                      Parametro 'n' para seleccion mixed.
+mixed_roul=1                   Parametro para seleccion mixed: 1 = Utilizar ruleta con elite, 0 = utilizar universal con elite
+cross_function=anular          Metodo de cruza a utilizar.  Valores posibles: one_point, two_point, anular, uniform
+cross_prob=1                   Probabilidad de cruza.
+mutation_function=classic      Funcion de mutacion a utilizar.  Valores posibles: classic, non_uniform.
+mutation_prob=0.1              Probabilidad de mutacion para cada peso individual.
+mutation_range=0.1             Rango de mutacion para cada peso, ejemplo: 0.15 = +/- 15%.
+mutation_alpha=100             Parametro alpha para mutacion non_uniform (multiplicador de fun. exponencial).
+mutation_beta=0.01             Parametro beta para mutacion non_uniform (exponente de fun. exponencial).
+replacement_method=method2     Metodo de reemplazo, valores posibles: method1, method2, method3.
+replacement_selection=mixed    Metodo de seleccion para el reemplazo.  Mismos valores que el parametro 'selection'.
+replacement_tournament_m=0     Parametro 'tournament_m' pero para reemplazo.
+replacement_mixed_n=4          Parametro 'mixed_n' pero para reemplazo.
+replacement_mixed_roul=1       Parametro 'mixed_roul' pero para reemplazo.
+
+Una vez elegidos los parametros deseados, se puede ejectutar el proyecto utilizando el siguiente comando, asumiendo
+que el directorio actual es la carpeta 'src' del proyecto:
+
+$ octave main.m
+
+Se mostrara en pantalla: la configuracion utilizada, el mejor fitness cada 100 generaciones, y dos graficos: uno
+mostrando como se esta aproximando a la funcion especificada, y otro mostrando el fitness maximo y el fitness promedio
+por generacion.  Una vez finalizada la prueba (luego de alcanzar alguna condicion de corte), se imprimiran en pantalla
+el maximo fitness llegado, y los pesos ideales encontrados para la red neuronal optima.
