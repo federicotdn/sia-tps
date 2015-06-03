@@ -14,7 +14,7 @@ range=-4,0.1,4
 beta_fn=1.0
 
 % Selection related parameters
-% Values: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal
+% Values: elite, mixed, roulette, deterministic_tournament, probabilistic_tournament, universal, boltzman
 selection=universal
 % k is also used in the replacement methods (N - k)
 selection_k=11
@@ -28,6 +28,7 @@ cross_function=anular
 cross_prob=1
 
 % Mutation related parameters
+% Values: classic, non_uniform
 mutation_function=classic
 mutation_prob=0.1
 mutation_range=0.1
@@ -35,6 +36,7 @@ mutation_alpha=100
 mutation_beta=0.01
 
 % Replacement function related parameters
+% Values: method1, method2, method3
 replacement_method=method2
 replacement_selection=mixed
 replacement_tournament_m=0
