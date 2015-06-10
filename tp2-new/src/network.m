@@ -13,6 +13,8 @@ function network = train(network, debug_mode)
 			network = update_weights(network, pattern);
 		end
 
+		network.monmentum_weights = network.deltas_w;
+
 		network = feed_forward_batch(network);
 		cuadratic_error(epochs) = calculate_cuadratic_error(network);
 		
@@ -39,17 +41,22 @@ end
 function network  = init_network()
 	config = parse_backpropagation();
 	network.eta = config.eta;
-	network.beta_fn = config.beta_fn;
 	network.act_fn = config.act_fn;
 	network.act_fn_der = config.act_fn_der;
 	network.output_act_fn = config.output_act_fn;
 	network.output_act_fn_der = config.output_act_fn_der;
 	network.max_epochs = config.max_epochs;
 	network.range = config.range;
+	network.betas = config.betas;
 	network.min_cuadratic_error = config.min_cuadratic_error;
 	network.weights = init_weights(config.arch, config.rand_limit);
 	network.inputs{1} = [(ones(size(config.range',1),1)*-1) config.range'];
 	network.expected_outputs = calc_expected_outputs(config.range)';
+	network.momentum = config.momentum;
+	min_range = min(config.range);
+	max_range = max(config.range);
+	% network.range /=max_range;
+	network.range = ((network.range - min_range)/max(max_range - min_range) *2) -1;
 end
 
 function weights = init_weights(arch, rand_limit)
@@ -59,15 +66,25 @@ function weights = init_weights(arch, rand_limit)
 	end
 end
 
+function betas = init_betas(range)
+	betas = [];
+	betas = ones(1, length(range)) * 0.3;
+	% betas = [betas, [ones(1, length(find(range >= 10 & range  <= 14))) * 0.3]];
+	% betas = [betas, [ones(1, length(find(range > 14 & range  <= 16))) * 0.1]];
+	% betas = [betas, [ones(1, length(find(range > 25 & range  <= 33))) * 0.3]];
+	% betas = [betas, [ones(1, length(find(range > 33 & range  <= 45))) * 0.1]];
+end
+
 function expected_outputs = calc_expected_outputs(range)
 	for x = range
-		% expected_outputs(end + 1) = sin(x)*x^3 + x/2;
+		expected_outputs(end + 1) = sin(x)*x^3 + x/2;
 		% expected_outputs(end + 1) = sin(x) + (6 * (cos(x))^2);
-		expected_outputs(end + 1) = tanh(0.1 * x) + sin(3*x);
+		% expected_outputs(end + 1) = tanh(0.1 * x) + sin(3*x);
 		% expected_outputs(end + 1) = sin(x + 2*x^2 + 3*x^3);
 	end
-	max_output = max(abs(expected_outputs));
-	expected_outputs /= max_output;
+	max_output = max(expected_outputs);
+	min_output = min(expected_outputs);
+	expected_outputs = (((expected_outputs - min_output)/(max_output - min_output))*2)-1;
 	% expected_outputs = (expected_outputs + 1)/2;
 end
 

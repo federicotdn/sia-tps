@@ -4,6 +4,11 @@ function config = parse_backpropagation()
 	fid = fopen ('config.txt', 'r');
 	while (!feof (fid))
   	line = fgetl (fid);
+    disp(line);
+    if length(line) == 0 || line(1) == '%'
+      continue;
+    end
+
   	split = strsplit(line, '=');
   	key = split{1};
   	value = split{2};
@@ -11,7 +16,11 @@ function config = parse_backpropagation()
   		case 'eta'
   			config.eta = str2double(value);
   		case 'beta_fn'
-  			config.beta_fn = str2double(value);
+        if (!isfield(config, 'range'))
+          error('beta_fn debe aparecer despues de range en la configuracion')
+        end
+  			aux = parse2array(strsplit(value, ','));
+        config.betas = parse_betas(aux, config.range);
   		case 'max_epochs'
   			config.max_epochs = str2double(value);
   		case 'min_cuadratic_error'
@@ -27,9 +36,27 @@ function config = parse_backpropagation()
         [config.output_act_fn, config.output_act_fn_der]  = parse_act_function(value);
       case 'rand_limit'
         config.rand_limit = str2double(value);
+      case 'momentum'
+        config.momentum = str2double(value);
   	end
 	end
   fclose (fid);
+  printf('\n');
+end
+
+
+function betas = parse_betas(array, range)
+  betas = [];
+  if rem(length(array), 3) ~= 0
+    error ('Error al parsear beta: el formato es "desde, valor beta, hasta" y debe cubrir todo el intervalo');
+  end
+  for i = 1:3:length(array)/3
+    betas = [betas, [ones(1, length(find(range >= array(i) & range  <= array(i + 2)))) * array(i + 1)]];
+  end
+
+  if length(betas) ~= length(range)
+    error('Error al parsear beta: el intervalo de betas debe ser del mismo tamaño que el intervalo de la función');
+  end
 end
 
 function [act_fn, act_fn_der] = parse_act_function(string)

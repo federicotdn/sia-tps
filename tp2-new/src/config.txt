@@ -1,9 +1,13 @@
-arch=1,10,1
-eta=0.008
-beta_fn=0.5
-act_fn=tanh
+% Archivo de configuracion para la red neuronal
+% Usar '%' para comentarios a line
+
+arch=1,35,10,1
+eta=0.01
+act_fn=exp
 output_act_fn=tanh
-max_epochs=50000
-min_cuadratic_error=0.001
-range=-4,0.1,4
+max_epochs=20000
+min_cuadratic_error=0.00001
+range=10,0.1,17
+beta_fn=10,0.3,17
 rand_limit=0.5
+momentum=0.9
