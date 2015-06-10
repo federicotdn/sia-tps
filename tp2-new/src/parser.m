@@ -45,13 +45,13 @@ function config = parse_backpropagation()
 end
 
 
-function betas = parse_betas(array, range)
+function betas = parse_betas(array, range, step)
   betas = [];
   if rem(length(array), 3) ~= 0
     error ('Error al parsear beta: el formato es "desde, valor beta, hasta" y debe cubrir todo el intervalo');
   end
-  for i = 1:3:length(array)/3
-    betas = [betas, [ones(1, length(find(range >= array(i) & range  <= array(i + 2)))) * array(i + 1)]];
+  for i = 1:3:length(array)
+    betas = [betas, [ones(1, length(find(range >= array(i)  & range  <= array(i + 2)))) * array(i + 1)]];
   end
 
   if length(betas) ~= length(range)
