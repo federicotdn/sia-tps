@@ -17,10 +17,35 @@ function network = train(network, debug_mode)
 
 		network = feed_forward_batch(network);
 		cuadratic_error(epochs) = calculate_cuadratic_error(network);
+
+		% Si b es distinto de 0, entonces esta prendido eta adaptativo
+		if (epochs ~= 1 && network.b ~= 0)
+			delta_E = cuadratic_error(epochs) - cuadratic_error(epochs - 1);
+			delta_eta = 0;
+			if (delta_E > 0)
+				delta_eta = -network.b * network.eta;
+				epochs -= 1;
+				cuadratic_error = cuadratic_error(1:epochs);
+				network.weights = network.previous_weights;
+				network.const_E_growth = 0;
+			elseif delta_E < 0
+				network.const_E_growth += 1;
+				if mod(network.const_E_growth, network.k) == 0
+					delta_eta = network.a;
+				end
+			end
+			network.eta += delta_eta;
+			network.previous_weights = network.weights;
+		end
+
+		if epochs == 1
+			network.previous_weights = network.weights;
+		end
 		
 		if debug_mode
-			printf('E = %f epoca = %d\n ', cuadratic_error(epochs), epochs);
+			printf('E = %f epoca = %d eta = %f\n', cuadratic_error(epochs), epochs, network.eta);
 			if ( mod(epochs, 20) == 0)
+				clf();
 				hold on;
 				subplot(2,1,1);
 				plot(network.range, network.expected_outputs, network.range, network.outputs{end});
@@ -40,23 +65,16 @@ end
 
 function network  = init_network()
 	config = parse_backpropagation();
-	network.eta = config.eta;
-	network.act_fn = config.act_fn;
-	network.act_fn_der = config.act_fn_der;
-	network.output_act_fn = config.output_act_fn;
-	network.output_act_fn_der = config.output_act_fn_der;
-	network.max_epochs = config.max_epochs;
-	network.range = config.range;
-	network.betas = config.betas;
-	network.min_cuadratic_error = config.min_cuadratic_error;
+	network = config;
 	network.weights = init_weights(config.arch, config.rand_limit);
 	network.inputs{1} = [(ones(size(config.range',1),1)*-1) config.range'];
 	network.expected_outputs = calc_expected_outputs(config.range)';
-	network.momentum = config.momentum;
 	min_range = min(config.range);
 	max_range = max(config.range);
 	% network.range /=max_range;
 	network.range = ((network.range - min_range)/max(max_range - min_range) *2) -1;
+
+	network.const_E_growth = 0;
 end
 
 function weights = init_weights(arch, rand_limit)

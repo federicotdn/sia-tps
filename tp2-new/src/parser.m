@@ -15,6 +15,12 @@ function config = parse_backpropagation()
   	switch key
   		case 'eta'
   			config.eta = str2double(value);
+      case 'a'
+        config.a = str2double(value);
+      case 'b'
+        config.b = str2double(value);
+      case 'k'
+        config.k = str2double(value);
   		case 'beta_fn'
         if (!isfield(config, 'range'))
           error('beta_fn debe aparecer despues de range en la configuracion')
