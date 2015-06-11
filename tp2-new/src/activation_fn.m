@@ -1,5 +1,5 @@
 function ans = act_tanh(x, beta_fn)
-	ans = tanh(bsxfun(@times, x, beta_fn));
+	ans = tanh(beta_fn .* x);
 end
 
 function ans = act_tanh_der(g, beta_fn)
@@ -7,7 +7,7 @@ function ans = act_tanh_der(g, beta_fn)
 end
 
 function ans  = exp_fn(x, beta_fn)
-	ans =  1./(1 + exp(-2 .* bsxfun(@times, x, beta_fn)));
+	ans =  1./(1 + exp(-2 .* beta_fn.*x));
 end
 
 function ans  = exp_fn_der(g, beta_fn)

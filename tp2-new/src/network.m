@@ -45,7 +45,6 @@ function network = train(network, debug_mode)
 		if debug_mode
 			printf('E = %f epoca = %d eta = %f\n', cuadratic_error(epochs), epochs, network.eta);
 			if ( mod(epochs, 20) == 0)
-				clf();
 				hold on;
 				subplot(2,1,1);
 				plot(network.range, network.expected_outputs, network.range, network.outputs{end});
