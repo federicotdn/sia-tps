@@ -11,9 +11,8 @@ function network = train(network, debug_mode)
 			network = feed_forward(network, pattern);
 			network = calculate_deltas(network, pattern);
 			network = update_weights(network, pattern);
+			network.monmentum_weights = network.deltas_w;
 		end
-
-		network.monmentum_weights = network.deltas_w;
 
 		network = feed_forward_batch(network);
 		cuadratic_error(epochs) = calculate_cuadratic_error(network);
@@ -71,9 +70,9 @@ function network  = init_network()
 	min_range = min(config.range);
 	max_range = max(config.range);
 	% network.range /=max_range;
-	network.range = ((network.range - min_range)/max(max_range - min_range) *2) -1;
-
+	% network.range = ((network.range - min_range)/max(max_range - min_range) *2) -1;
 	network.const_E_growth = 0;
+	network.betas = [ones(1,5) * 0.1, ones(1,5) * 0.05, ones(1,5) * 0.01, ones(1,5) * 0.005, ones(1,5) * 0.001, ones(1,5) * 0.0005, ones(1,5) * 0.00001];
 end
 
 function weights = init_weights(arch, rand_limit)

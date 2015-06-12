@@ -2,7 +2,11 @@ function network = feed_forward(network, pattern)
 	for i = 1:length(network.weights)
 		network.outputs{i}(pattern, :) = network.inputs{i}(pattern, :) * network.weights{i};
 		if (i < length(network.weights))
-			temp_output = network.act_fn(network.outputs{i}(pattern, :), network.beta_fn);
+			if (i == 1)
+				temp_output = network.act_fn(network.outputs{i}(pattern, :), network.betas);
+			else
+				temp_output = network.act_fn(network.outputs{i}(pattern, :), network.beta_fn);
+			end
 			network.inputs{i + 1}(pattern, :) = [(ones(size(temp_output,1),1)*-1) temp_output];
 		end
 	end
@@ -15,7 +19,11 @@ function network = feed_forward_batch(network)
 	for i = 1:length(network.weights)
 		network.outputs{i} = network.inputs{i} * network.weights{i};
 		if (i < length(network.weights))
-			temp_output = network.act_fn(network.outputs{i}, network.beta_fn);
+			if (i == 1)
+				temp_output = network.act_fn(network.outputs{i}, network.betas);
+			else
+				temp_output = network.act_fn(network.outputs{i}, network.beta_fn);
+			end
 			network.inputs{i + 1} = [(ones(size(temp_output,1),1)*-1) temp_output];
 		end
 	end
