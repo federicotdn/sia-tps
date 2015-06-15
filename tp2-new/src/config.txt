@@ -2,15 +2,15 @@
 % Usar '%' para comentarios a line
 
 arch=1,35,10,1
-eta=0.01
+eta=0.0005
 act_fn=tanh
-output_act_fn=tanh
-max_epochs=20000
+output_act_fn=linear
+max_epochs=30000
 min_cuadratic_error=0.00001
-range=10,0.3,45
-beta_fn=0.7
-rand_limit=0.5
-momentum=0.9
-a=0.1
+range=10,0.1,45
+beta_fn=5
+rand_limit=0.7
+momentum=0.8
+a=0.0
 b=0.00
 k=5
