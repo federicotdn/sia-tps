@@ -1,5 +1,5 @@
 source('network.m');
 
 network = init_network();
-network = train(network, true, false);
+network = train(network, true);
 pause();

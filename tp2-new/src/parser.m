@@ -40,6 +40,12 @@ function config = parse_backpropagation()
         config.rand_limit = str2double(value);
       case 'momentum'
         config.momentum = str2double(value);
+      case 'mode'
+        if !strcmp('incremental', value) || !strcmp('batch', value)
+          config.mode = value;
+        end
+      case 'print_mod'
+        config.print_mod = str2double(value);
   	end
 	end
   fclose (fid);
