@@ -10,7 +10,6 @@ function network = train(network, debug_mode)
 	network = feed_forward_batch(network);
 	cuadratic_error(end + 1) = calculate_cuadratic_error(network);
 	while epochs <= network.max_epochs
-		pattern_count = 0;
 		if strcmp(network.mode, 'batch')
 			network.previous_weights = network.weights;
 			network = feed_forward_batch(network);
@@ -44,17 +43,19 @@ function network = train(network, debug_mode)
 		if (network.b ~= 0)
 			delta_E = cuadratic_error(epochs) - cuadratic_error(epochs - 1);
 			delta_eta = 0;
+			network.momentum = network.original_momentum;
 			if delta_E > 0
 				epochs -=1;
 				cuadratic_error = cuadratic_error(1:end - 1);
 				delta_eta = - network.eta * network.b;
 				network.weights = network.previous_weights;
+				network.momentum = 0;
 				network.const_E_growth = 0;
 			elseif delta_E < 0
 				network.const_E_growth++;
 				if network.const_E_growth > network.k
 					delta_eta = network.a;
-				end				
+				end
 			end
 			network.eta += delta_eta;
 			network.previous_weights = network.weights;
@@ -90,6 +91,27 @@ function ans = graph(cuadratic_error, epochs, network)
 	refresh();
 end
 
+function network = generalize(network, range_string)
+	range = parse2array(strsplit(range_string, ','));
+	range = (range(1):range(2):range(3));
+	network.expected_outputs = calc_expected_outputs(range);
+	network.range = normalize(range);
+	network.inputs{1} = [(ones(size(network.range',1),1)*-1) network.range'];
+	network.outputs = {};
+	network = feed_forward_batch(network);
+	cuadratic_error = calculate_cuadratic_error(network);
+	printf('Generalizo con  E = %f\n', cuadratic_error);
+	hold on;
+	clf();
+	plot(network.range, network.expected_outputs, network.range, network.outputs{end});
+	legend('Funcion', 'Aprox', 'location', 'eastoutside');
+	title('Funcion 7');
+	xlabel('x');
+  ylabel('f(x)');
+	hold off;
+	refresh();
+end
+
 function cuadratic_error = calculate_cuadratic_error(network)
 	cuadratic_error = (1/(2*length(network.range)))*sum((network.expected_outputs - network.outputs{end}).^2);
 end
@@ -98,19 +120,23 @@ function network  = init_network()
 	config = parse_backpropagation();
 	network = config;
 	network.weights = init_weights(config.arch, config.rand_limit);
-	min_range = min(config.range);
-	max_range = max(config.range);
-	network.range = ((config.range - min_range)/max(max_range - min_range)) * 2 -1; 
+	network.range = normalize(config.range);
 	% network.range = config.range;
 	network.inputs{1} = [(ones(size(network.range',1),1)*-1) network.range'];
-	network.expected_outputs = calc_expected_outputs(config.range)';
+	network.expected_outputs = calc_expected_outputs(config.range);
 
 	% network.range /=max_range;
 	network.const_E_growth = 0;
 	% network.betas = [ones(1,5) * 2, ones(1,5) * 1.5, ones(1,5) * 1.3, ones(1,5) * 1.1, ones(1,5) * 0.8, ones(1,5) * 1, ones(1,5) * 0.7];
 	network.betas = [ones(1,10) * 1, ones(1,10) * 2, ones(1,15) * 3];
 	network.betas =network.beta_fn;
-	network.went_back = false;
+	network.original_momentum = network.momentum;
+end
+
+function ans = normalize(array)
+	min_aux = min(array);
+	max_aux = max(array);
+	ans = ((array - min_aux)/max(max_aux - min_aux)) * 2 -1; 
 end
 
 function weights = init_weights(arch, rand_limit)
@@ -130,9 +156,7 @@ function expected_outputs = calc_expected_outputs(range)
 		% expected_outputs(end + 1) = tanh(0.1 * x) + sin(3*x);
 		% expected_outputs(end + 1) = sin(x + 2*x^2 + 3*x^3);
 	end
-	max_output = max(expected_outputs);
-	min_output = min(expected_outputs);
-	expected_outputs = (((expected_outputs - min_output)/(max_output - min_output)) *2 ) -1;
+	expected_outputs = normalize(expected_outputs)';
 	% expected_outputs /= max_output;
 	% expected_outputs = (expected_outputs + 1)/2;
 end
