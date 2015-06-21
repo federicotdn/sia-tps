@@ -28,26 +28,6 @@ function network = train(network, debug_mode)
 				network = calculate_deltas(network, pattern);
 				network = update_weights(network, pattern);
 				network.monmentum_weights = network.deltas_w;
-
-				% if i ~=1 && mod(i - 1, network.k) == 0
-				% 	network = feed_forward_batch(network);
-				% 	current_cuadratic_error = calculate_cuadratic_error(network);
-				% 	delta_E = current_cuadratic_error - previous_cuadratic_error;
-				% 	delta_eta = 0;
-				% 	if delta_E >= 0
-				% 		if !network.went_back
-				% 			network.weights = network.previous_weights;
-				% 			network.went_back = true;
-				% 			i -= network.k;
-				% 		end
-				% 		network.eta -= network.b * network.eta;
-				% 	elseif delta_E < 0
-				% 		network.eta += network.a;
-				% 		network.went_back = false;
-				% 		previous_cuadratic_error = current_cuadratic_error;
-				% 	end
-				% 	network.previous_weights = network.weights;
-				% end
 				i++;
 			end
 		end
@@ -82,17 +62,31 @@ function network = train(network, debug_mode)
 		
 		if debug_mode
 			printf('E = %f epoca = %d eta = %f\n', cuadratic_error(epochs), epochs, network.eta);
-			if ( mod(epochs, network.print_mod) == 0)
-				hold on;
-				subplot(2,1,1);
-				plot(network.range, network.expected_outputs, network.range, network.outputs{end});
-				subplot(2,1,2);
-				plot((1:length(cuadratic_error)), cuadratic_error);
-				hold off;
-				refresh();
+			if ( mod(epochs -1, network.print_mod) == 0)
+				graph(cuadratic_error, epochs, network);
 			end
 		end
 	end
+	graph(cuadratic_error, epochs, network);
+	printf('\n Termino con: \n');
+	printf('E = %f epoca = %d eta = %f\n', cuadratic_error(epochs), epochs, network.eta);
+end
+
+function ans = graph(cuadratic_error, epochs, network)
+	hold on;
+	subplot(2,1,1);
+	plot(network.range, network.expected_outputs, network.range, network.outputs{end});
+	legend('Funcion', 'Aprox', 'location', 'eastoutside');
+	title('Funcion 7');
+	xlabel('x');
+  ylabel('f(x)');
+	subplot(2,1,2);
+	plot((0:length(cuadratic_error) -1), cuadratic_error);
+	title('Error cuadratico medio (E)');
+	xlabel('Epoca');
+  ylabel('E(epoca)');
+	hold off;
+	refresh();
 end
 
 function cuadratic_error = calculate_cuadratic_error(network)
@@ -106,21 +100,21 @@ function network  = init_network()
 	min_range = min(config.range);
 	max_range = max(config.range);
 	network.range = ((config.range - min_range)/max(max_range - min_range)) * 2 -1; 
-	% network.range = config.range/max_range;
+	% network.range = config.range;
 	network.inputs{1} = [(ones(size(network.range',1),1)*-1) network.range'];
 	network.expected_outputs = calc_expected_outputs(config.range)';
 
 	% network.range /=max_range;
 	network.const_E_growth = 0;
 	% network.betas = [ones(1,5) * 2, ones(1,5) * 1.5, ones(1,5) * 1.3, ones(1,5) * 1.1, ones(1,5) * 0.8, ones(1,5) * 1, ones(1,5) * 0.7];
-	network.betas = [ones(1,10) * 0.1, ones(1,10) * 2, ones(1,15) * 3];
+	network.betas = [ones(1,10) * 1, ones(1,10) * 2, ones(1,15) * 3];
 	network.betas =network.beta_fn;
 	network.went_back = false;
 end
 
 function weights = init_weights(arch, rand_limit)
 	for i = 1:length(arch) - 1
-		rand('seed', i * (5**32));
+		rand('seed', i * (3**32));
 		fan_in = arch(i) + 1;
 		% rand_limit = 1/sqrt(fan_in);
 		weights{i} = (rand(fan_in, arch(i + 1)) * (2 * rand_limit)) - rand_limit;
