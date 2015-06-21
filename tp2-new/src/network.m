@@ -63,7 +63,7 @@ function network = train(network, debug_mode)
 		
 		if debug_mode
 			printf('E = %f epoca = %d eta = %f\n', cuadratic_error(epochs), epochs, network.eta);
-			if ( mod(epochs -1, network.print_mod) == 0)
+			if (epochs ~=1 &&  mod(epochs -1, network.print_mod) == 0)
 				graph(cuadratic_error, epochs, network);
 			end
 		end
@@ -76,6 +76,7 @@ end
 function ans = graph(cuadratic_error, epochs, network)
 	hold on;
 	clf();
+	figure (1, 'position', [50, 150, 900, 700], 'name', network.window_name);
 	subplot(2,1,1);
 	plot(network.range, network.expected_outputs, network.range, network.outputs{end});
 	legend('Funcion', 'Aprox', 'location', 'eastoutside');

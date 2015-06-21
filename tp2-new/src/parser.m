@@ -46,6 +46,8 @@ function config = parse_backpropagation()
         end
       case 'print_mod'
         config.print_mod = str2double(value);
+      case 'window_name'
+        config.window_name = value;
   	end
 	end
   fclose (fid);
