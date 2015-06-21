@@ -16,7 +16,7 @@ function network = train(network, debug_mode)
 			network = feed_forward_batch(network);
 			network = calculate_deltas_batch(network);
 			network = update_weights_batch(network);
-			network.monmentum_weights = network.deltas_w;
+			network.momentum_weights = network.deltas_w;
 			% abs(network.inputs{2}) > 0.9
 			% network.outputs{end}
 		else
@@ -27,7 +27,7 @@ function network = train(network, debug_mode)
 				network = feed_forward(network, pattern);
 				network = calculate_deltas(network, pattern);
 				network = update_weights(network, pattern);
-				network.monmentum_weights = network.deltas_w;
+				network.momentum_weights = network.deltas_w;
 				i++;
 			end
 		end
@@ -74,6 +74,7 @@ end
 
 function ans = graph(cuadratic_error, epochs, network)
 	hold on;
+	clf();
 	subplot(2,1,1);
 	plot(network.range, network.expected_outputs, network.range, network.outputs{end});
 	legend('Funcion', 'Aprox', 'location', 'eastoutside');
