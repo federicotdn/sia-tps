@@ -9,7 +9,8 @@ function network = train(network, debug_mode)
 	network.previous_weights = network.weights;
 	network = feed_forward_batch(network);
 	cuadratic_error(end + 1) = calculate_cuadratic_error(network);
-	while epochs <= network.max_epochs
+	running = true;
+	while running
 		if strcmp(network.mode, 'batch')
 			network.previous_weights = network.weights;
 			network = feed_forward_batch(network);
@@ -39,8 +40,10 @@ function network = train(network, debug_mode)
 
 		epochs++;
 
+		running = epochs <= network.max_epochs && cuadratic_error(epochs) > network.min_cuadratic_error;   
+
 		% Si b es distinto de 0, entonces esta prendido eta adaptativo
-		if (network.b ~= 0)
+		if (running && network.b ~= 0)
 			delta_E = cuadratic_error(epochs) - cuadratic_error(epochs - 1);
 			delta_eta = 0;
 			network.momentum = network.original_momentum;
@@ -69,14 +72,21 @@ function network = train(network, debug_mode)
 		end
 	end
 	graph(cuadratic_error, epochs, network);
+	if epochs > network.max_epochs
+		cut_condition = 'maxima cantidad de generaciones alcanzada';
+	else
+		cut_condition = 'error cuadratico medio minimo alcanzado';
+	end
+
 	printf('\n Termino con: \n');
 	printf('E = %f epoca = %d eta = %f\n', cuadratic_error(epochs), epochs, network.eta);
+	printf('Condicion de corte: %s\n\n', cut_condition);
 end
 
 function ans = graph(cuadratic_error, epochs, network)
 	hold on;
 	clf();
-	figure (1, 'position', [50, 150, 900, 700], 'name', network.window_name);
+	figure (1, 'position', [50, 150, 1400, 700], 'name', network.window_name);
 	subplot(2,1,1);
 	plot(network.range, network.expected_outputs, network.range, network.outputs{end});
 	legend('Funcion', 'Aprox', 'location', 'eastoutside');
