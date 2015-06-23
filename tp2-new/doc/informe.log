@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.24)  23 JUN 2015 08:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.24)  23 JUN 2015 08:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -822,11 +822,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 343.
 Here is how much of TeX's memory you used:
  8700 strings out of 494522
  127960 string characters out of 6167204
- 254435 words of memory out of 5000000
+ 254436 words of memory out of 5000000
  11777 multiletter control sequences out of 15000+600000
  13811 words of font info for 54 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 36i,9n,38p,2703b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,9n,38p,2788b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014basic/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmbx10.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/pu
@@ -842,7 +842,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014basic
 ic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/201
 4basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/
 2014basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on informe.pdf (15 pages, 630277 bytes).
+Output written on informe.pdf (15 pages, 630471 bytes).
 PDF statistics:
  336 PDF objects out of 1000 (max. 8388607)
  254 compressed objects within 3 object streams
