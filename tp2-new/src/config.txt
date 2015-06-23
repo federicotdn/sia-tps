@@ -1,16 +1,19 @@
-arch=1,35,10,1
-mode=batch
-eta=0.05
+% Archivo de configuracion para la red neuronal
+% Usar '%' para comentarios a line
+
+arch=1,35,15,1
+mode=incremental
+eta=0.005
 act_fn=tanh
-output_act_fn=tanh
-max_epochs=50000
-min_cuadratic_error=0.00001
+output_act_fn=linear
+max_epochs=5000
+min_cuadratic_error=0.0001
 range=10,0.5,45
-beta_fn=1
+beta_fn=3
 rand_limit=0.7
-momentum=0.9
-a=0.0000005
-b=0.06
-k=5
-print_mod=2000
-window_name=100
+momentum=0.3
+a=0.0002
+b=0.00
+k=3
+print_mod=50
+window_name=laMejor

@@ -17,8 +17,6 @@ function network = train(network, debug_mode)
 			network = calculate_deltas_batch(network);
 			network = update_weights_batch(network);
 			network.momentum_weights = network.deltas_w;
-			% abs(network.inputs{2}) > 0.9
-			% network.outputs{end}
 		else
 			aux = randperm(length(network.range));
 			i = 1;
@@ -34,9 +32,6 @@ function network = train(network, debug_mode)
 
 		network = feed_forward_batch(network);
 		cuadratic_error(epochs + 1) = calculate_cuadratic_error(network);
-
-		% network.outputs{end}
-		% network.inputs{3}
 
 		epochs++;
 
@@ -80,13 +75,13 @@ function network = train(network, debug_mode)
 
 	printf('\n Termino con: \n');
 	printf('E = %f epoca = %d eta = %f\n', cuadratic_error(epochs), epochs, network.eta);
-	printf('Condicion de corte: %s\n\n', cut_condition);
+	printf('Razon de corte: %s\n\n', cut_condition);
 end
 
 function ans = graph(cuadratic_error, epochs, network)
 	hold on;
 	clf();
-	figure (1, 'position', [50, 150, 1400, 700], 'name', network.window_name);
+	figure (1, 'name', network.window_name);
 	subplot(2,1,1);
 	plot(network.range, network.expected_outputs, network.range, network.outputs{end});
 	legend('Funcion', 'Aprox', 'location', 'eastoutside');
@@ -102,9 +97,7 @@ function ans = graph(cuadratic_error, epochs, network)
 	refresh();
 end
 
-function network = generalize(network, range_string)
-	range = parse2array(strsplit(range_string, ','));
-	range = (range(1):range(2):range(3));
+function network = generalize(network, range)
 	network.expected_outputs = calc_expected_outputs(range);
 	network.range = normalize(range);
 	network.inputs{1} = [(ones(size(network.range',1),1)*-1) network.range'];
@@ -132,15 +125,9 @@ function network  = init_network()
 	network = config;
 	network.weights = init_weights(config.arch, config.rand_limit);
 	network.range = normalize(config.range);
-	% network.range = config.range;
 	network.inputs{1} = [(ones(size(network.range',1),1)*-1) network.range'];
 	network.expected_outputs = calc_expected_outputs(config.range);
-
-	% network.range /=max_range;
 	network.const_E_growth = 0;
-	% network.betas = [ones(1,5) * 2, ones(1,5) * 1.5, ones(1,5) * 1.3, ones(1,5) * 1.1, ones(1,5) * 0.8, ones(1,5) * 1, ones(1,5) * 0.7];
-	network.betas = [ones(1,10) * 1, ones(1,10) * 2, ones(1,15) * 3];
-	network.betas =network.beta_fn;
 	network.original_momentum = network.momentum;
 end
 
@@ -154,26 +141,13 @@ function weights = init_weights(arch, rand_limit)
 	for i = 1:length(arch) - 1
 		rand('seed', i * (3**32));
 		fan_in = arch(i) + 1;
-		% rand_limit = 1/sqrt(fan_in);
 		weights{i} = (rand(fan_in, arch(i + 1)) * (2 * rand_limit)) - rand_limit;
-		% weights{i} = ones(arch(i) + 1, arch(i + 1));
 	end
 end
 
 function expected_outputs = calc_expected_outputs(range)
 	for x = range
 		expected_outputs(end + 1) = sin(x)*x^3 + x/2;
-		% expected_outputs(end + 1) = sin(x) + (6 * (cos(x))^2);
-		% expected_outputs(end + 1) = tanh(0.1 * x) + sin(3*x);
-		% expected_outputs(end + 1) = sin(x + 2*x^2 + 3*x^3);
 	end
 	expected_outputs = normalize(expected_outputs)';
-	% expected_outputs /= max_output;
-	% expected_outputs = (expected_outputs + 1)/2;
 end
-
-% function outputs = init_inputs(arch)
-% 	for i = 1:length(arch)-1
-% 		outputs{i} = zeros(length(range), arch(i+1));
-% 	end
-% end

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.24)  22 JUN 2015 21:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.24)  23 JUN 2015 08:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -533,6 +533,12 @@ Package babel Info: Making . an active character on input line 617.
 Package babel Info: Making < an active character on input line 662.
 Package babel Info: Making > an active character on input line 662.
 ))
+(/usr/local/texlive/2014basic/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 1995/10/27 v1.08 After-Page Package (DPC)
+\AP@output=\toks27
+\AP@partial=\box33
+\AP@footins=\box34
+)
 \@indexfile=\write3
 \openout3 = `informe.idx'.
 
@@ -594,7 +600,7 @@ LaTeX Font Info:    ... okay on input line 27.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box33
+\AtBeginShipoutBox=\box35
 Package hyperref Info: Link coloring OFF on input line 27.
 (/usr/local/texlive/2014basic/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -617,15 +623,15 @@ LaTeX Info: Redefining \nameref on input line 27.
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count119
 \scratchdimen=\dimen137
-\scratchbox=\box34
+\scratchbox=\box36
 \nofMPsegments=\count120
 \nofMParguments=\count121
-\everyMPshowfont=\toks27
+\everyMPshowfont=\toks28
 \MPscratchCnt=\count122
 \MPscratchDim=\dimen138
 \MPnumerator=\count123
 \makeMPintoPDFobject=\count124
-\everyMPtoPDFconversion=\toks28
+\everyMPtoPDFconversion=\toks29
 ) (/usr/local/texlive/2014basic/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 (/usr/local/texlive/2014basic/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -669,91 +675,177 @@ LaTeX Info: Redefining \% on input line 1.
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.76 
+l.80 
       [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.85 \clearpage
-                [2] <img/PruebaRecu11.png, id=74, 1284.8pt x 668.4975pt>
+l.92 
+      [2] [3] [4] [5] <img/sinNormalizar.png, id=179, 1393.205pt x 694.595pt>
+File: img/sinNormalizar.png Graphic file (type png)
+
+<use img/sinNormalizar.png>
+Package pdftex.def Info: img/sinNormalizar.png used on input line 244.
+(pdftex.def)             Requested size: 372.73969pt x 185.82617pt.
+
+<img/PruebaRecu11.png, id=183, 1284.8pt x 668.4975pt>
 File: img/PruebaRecu11.png Graphic file (type png)
 
 <use img/PruebaRecu11.png>
-Package pdftex.def Info: img/PruebaRecu11.png used on input line 125.
+Package pdftex.def Info: img/PruebaRecu11.png used on input line 250.
 (pdftex.def)             Requested size: 372.73969pt x 193.9409pt.
 
-<img/PruebaRecu1.png, id=76, 1295.84125pt x 694.595pt>
+<img/PruebaRecu1.png, id=184, 1295.84125pt x 694.595pt>
 File: img/PruebaRecu1.png Graphic file (type png)
 
 <use img/PruebaRecu1.png>
-Package pdftex.def Info: img/PruebaRecu1.png used on input line 131.
+Package pdftex.def Info: img/PruebaRecu1.png used on input line 256.
 (pdftex.def)             Requested size: 372.73969pt x 199.7952pt.
+ <img/unaCapa.png, id=187, 1395.2125pt x 697.60625pt>
+File: img/unaCapa.png Graphic file (type png)
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<img/PruebaRecu15.png, id=79, 1284.8pt x 670.505pt>
+<use img/unaCapa.png>
+Package pdftex.def Info: img/unaCapa.png used on input line 262.
+(pdftex.def)             Requested size: 372.73969pt x 186.36566pt.
+ <img/PruebaRecu15.png, id=190, 1284.8pt x 670.505pt>
 File: img/PruebaRecu15.png Graphic file (type png)
- <use img/PruebaRecu15.png>
-Package pdftex.def Info: img/PruebaRecu15.png used on input line 137.
+
+<use img/PruebaRecu15.png>
+Package pdftex.def Info: img/PruebaRecu15.png used on input line 268.
 (pdftex.def)             Requested size: 372.73969pt x 194.52332pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<img/PruebaRecu10.png, id=82, 1290.8225pt x 702.625pt>
+<img/PruebaRecu10.png, id=193, 1290.8225pt x 702.625pt>
 File: img/PruebaRecu10.png Graphic file (type png)
 
 <use img/PruebaRecu10.png>
-Package pdftex.def Info: img/PruebaRecu10.png used on input line 143.
+Package pdftex.def Info: img/PruebaRecu10.png used on input line 274.
 (pdftex.def)             Requested size: 372.73969pt x 202.8876pt.
 
+<img/PruebaRecu29.png, id=196, 1284.8pt x 667.49374pt>
+File: img/PruebaRecu29.png Graphic file (type png)
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+<use img/PruebaRecu29.png>
+Package pdftex.def Info: img/PruebaRecu29.png used on input line 280.
+(pdftex.def)             Requested size: 372.73969pt x 193.6497pt.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 148.
-[3
+<img/PruebaRecu40.png, id=199, 1385.175pt x 695.59875pt>
+File: img/PruebaRecu40.png Graphic file (type png)
 
- <./img/PruebaRecu11.png>] [4 <./img/PruebaRecu1.png> <./img/PruebaRecu15.png> 
-<./img/PruebaRecu10.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 148.
+<use img/PruebaRecu40.png>
+Package pdftex.def Info: img/PruebaRecu40.png used on input line 286.
+(pdftex.def)             Requested size: 372.73969pt x 187.17734pt.
+
+<img/PruebaRecu25.png, id=202, 1284.8pt x 668.4975pt>
+File: img/PruebaRecu25.png Graphic file (type png)
+
+<use img/PruebaRecu25.png>
+Package pdftex.def Info: img/PruebaRecu25.png used on input line 292.
+(pdftex.def)             Requested size: 372.73969pt x 193.9409pt.
+
+<img/PruebaRecu26.png, id=205, 1284.8pt x 670.505pt>
+File: img/PruebaRecu26.png Graphic file (type png)
+
+<use img/PruebaRecu26.png>
+Package pdftex.def Info: img/PruebaRecu26.png used on input line 298.
+(pdftex.def)             Requested size: 372.73969pt x 194.52332pt.
+ [6
+
+] [7 <./img/sinNormalizar.png>] [8 <./img/PruebaRecu11.png> <./img/PruebaRecu1.
+png> <./img/unaCapa.png>] [9 <./img/PruebaRecu15.png> <./img/PruebaRecu10.png> 
+<./img/PruebaRecu29.png>] [10 <./img/PruebaRecu40.png> <./img/PruebaRecu25.png>
+ <./img/PruebaRecu26.png>]
+<img/PruebaRecu27.png, id=239, 1284.8pt x 668.4975pt>
+File: img/PruebaRecu27.png Graphic file (type png)
+
+<use img/PruebaRecu27.png>
+Package pdftex.def Info: img/PruebaRecu27.png used on input line 307.
+(pdftex.def)             Requested size: 372.73969pt x 193.9409pt.
+
+<img/PruebaRecu28.png, id=242, 1284.8pt x 668.4975pt>
+File: img/PruebaRecu28.png Graphic file (type png)
+
+<use img/PruebaRecu28.png>
+Package pdftex.def Info: img/PruebaRecu28.png used on input line 314.
+(pdftex.def)             Requested size: 372.73969pt x 193.9409pt.
+
+<img/PruebaRecu39.png, id=245, 1396.21625pt x 692.5875pt>
+File: img/PruebaRecu39.png Graphic file (type png)
+
+<use img/PruebaRecu39.png>
+Package pdftex.def Info: img/PruebaRecu39.png used on input line 320.
+(pdftex.def)             Requested size: 372.73969pt x 184.89809pt.
+ <img/gen1.png, id=248, 1399.2275pt x 696.6025pt>
+File: img/gen1.png Graphic file (type png)
+
+<use img/gen1.png>
+Package pdftex.def Info: img/gen1.png used on input line 327.
+(pdftex.def)             Requested size: 372.73969pt x 185.56604pt.
+ <img/gen2.png, id=251, 1398.22375pt x 693.59125pt>
+File: img/gen2.png Graphic file (type png)
+
+<use img/gen2.png>
+Package pdftex.def Info: img/gen2.png used on input line 333.
+(pdftex.def)             Requested size: 372.73969pt x 184.89088pt.
+ <img/gen3.png, id=254, 1399.2275pt x 693.59125pt>
+File: img/gen3.png Graphic file (type png)
+
+<use img/gen3.png>
+Package pdftex.def Info: img/gen3.png used on input line 339.
+(pdftex.def)             Requested size: 372.73969pt x 184.76389pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 343.
+ [11
+
+ <./img/PruebaRecu27.png> <./img/PruebaRecu28.png>]
+[12 <./img/PruebaRecu39.png> <./img/gen1.png> <./img/gen2.png>] [13 <./img/gen3
+.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 343.
  (./informe.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 148.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 148.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 343.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 343.
 Package rerunfilecheck Info: File `informe.out' has not changed.
-(rerunfilecheck)             Checksum: F0268AD218DE424812AE7FABFFE98E09;316.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 148.
- ) 
+(rerunfilecheck)             Checksum: 02FF2D4DF0098C755B56D4468B8FDC48;953.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 343.
+ )
+(\end occurred inside a group at level 1)
+
+### simple group (level 1) entered at line 133 ({)
+### bottom level 
 Here is how much of TeX's memory you used:
- 8560 strings out of 494522
- 125511 string characters out of 6167204
- 226432 words of memory out of 5000000
- 11688 multiletter control sequences out of 15000+600000
+ 8700 strings out of 494522
+ 127960 string characters out of 6167204
+ 254435 words of memory out of 5000000
+ 11777 multiletter control sequences out of 15000+600000
  13811 words of font info for 54 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 36i,9n,38p,2334b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
-0.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx12.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmex10.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi10.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi8.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014basic/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014basic/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on informe.pdf (6 pages, 213369 bytes).
+ 36i,9n,38p,2703b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014basic/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx10.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmex10.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014basic/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2014basic/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2014basic/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014basic/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014basic/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2014basic/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014basic
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014bas
+ic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/201
+4basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/
+2014basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on informe.pdf (15 pages, 630277 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 109 compressed objects within 2 object streams
- 17 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 336 PDF objects out of 1000 (max. 8388607)
+ 254 compressed objects within 3 object streams
+ 53 named destinations out of 1000 (max. 500000)
+ 201 words of extra memory for PDF output out of 10000 (max. 10000000)
 
