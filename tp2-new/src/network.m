@@ -19,14 +19,11 @@ function network = train(network, debug_mode)
 			network.momentum_weights = network.deltas_w;
 		else
 			aux = randperm(length(network.range));
-			i = 1;
-			while i <= length(aux)
-				pattern = aux(i);
+			for pattern = aux;
 				network = feed_forward(network, pattern);
 				network = calculate_deltas(network, pattern);
 				network = update_weights(network, pattern);
 				network.momentum_weights = network.deltas_w;
-				i++;
 			end
 		end
 
