@@ -1,0 +1,7 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Objetivo}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Aclaraciones}{1}{subsection.1.2}
+\contentsline {section}{\numberline {2}Correcciones}{1}{section.2}
+\contentsline {section}{\numberline {3}Pruebas y an\IeC {\'a}lisis}{2}{section.3}
+\contentsline {section}{\numberline {A}Anexo}{3}{appendix.Alph1}
